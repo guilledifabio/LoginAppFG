@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.preference.PreferenceCategory
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/pref_general_title">
+
+        <android.support.v7.preference.EditTextPreference
+            android:id="@+id/user_name"
+            android:key="user_name"
+            android:summary="@string/ref_user_name_summary"
+            android:title="@string/pref_user_name_title" />
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="alert_noti"
+            android:summaryOff="Notificaciones Desactivadas"
+            android:summaryOn="Notificaciones Actividas"
+            android:title="@string/notification" />
+
+    </android.support.v7.preference.PreferenceCategory>
+
+
+    <android.support.v7.preference.PreferenceCategory
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Datos Personales">
+
+        <android.support.v7.preference.EditTextPreference
+            android:id="@+id/name"
+            android:key="name"
+            android:summary="Nombre"
+            android:title="Nombre" />
+
+        <android.support.v7.preference.EditTextPreference
+            android:id="@+id/lastname"
+            android:key="lastname"
+            android:summary="Apellido"
+            android:title="Apellido" />
+
+        <android.support.v7.preference.EditTextPreference
+            android:id="@+id/address"
+            android:key="address"
+            android:summary="Dirección"
+            android:title="Dirección" />
+
+        <android.support.v7.preference.EditTextPreference
+            android:id="@+id/phoneNumber"
+            android:key="phone"
+            android:summary="Celular"
+            android:title="Celular" />
+
+    </android.support.v7.preference.PreferenceCategory>
+
+    <android.support.v7.preference.PreferenceCategory
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Personalización">
+
+        <android.support.v7.preference.EditTextPreference
+            android:id="@+id/historial"
+            android:key="historial"
+            android:summary="Borrar historial"
+            android:title="Historial" />
+
+    </android.support.v7.preference.PreferenceCategory>
+
+
+</PreferenceScreen>

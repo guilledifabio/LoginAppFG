@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Provincia1">
+        <item>L1_1</item>
+        <item>L1_2</item>
+        <item>L1_3</item>
+        <item>L1_4</item>
+        <item>L1_5</item>
+    </string-array>
+
+    <string-array name="Provincia2">
+        <item>L2_1</item>
+        <item>L2_2</item>
+        <item>L2_3</item>
+        <item>L2_4</item>
+        <item>L2_5</item>
+    </string-array>
+
+    <string-array name="Provincia3">
+        <item>L3_1</item>
+        <item>L3_2</item>
+        <item>L3_3</item>
+        <item>L3_4</item>
+        <item>L3_5</item>
+    </string-array>
+
+    <string-array name="Provincia4">
+        <item>L4_1</item>
+        <item>L4_2</item>
+        <item>L4_3</item>
+        <item>L4_4</item>
+        <item>L4_5</item>
+    </string-array>
+
+    <string-array name="Provincia5">
+        <item>L5_1</item>
+        <item>L5_2</item>
+        <item>L5_3</item>
+        <item>L5_4</item>
+        <item>L5_5</item>
+    </string-array>
+</resources>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1093122949269",
+    "project_id": "loginapp-a8702"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093122949269:android:775871c463625251",
+        "android_client_info": {
+          "package_name": "ar.edu.unrn.lia.loginapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093122949269-0mefm37j07sp0g9su74m3k2e9s9k9nf4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARpeUtVjHgQoDPJJvR1FmSEJJ06RsyM4w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

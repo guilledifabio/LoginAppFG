@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="provincias_array">
+        <item>Provincia1</item>
+        <item>Provincia2</item>
+        <item>Provincia3</item>
+        <item>Provincia4</item>
+        <item>Provincia5</item>
+    </string-array>
+</resources>
