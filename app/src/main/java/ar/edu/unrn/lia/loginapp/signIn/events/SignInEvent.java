@@ -1,6 +1,6 @@
 package ar.edu.unrn.lia.loginapp.signIn.events;
 
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
+import ar.edu.unrn.lia.loginapp.entities.User;
 
 /**
  * Created by Germán on 1/2/2017.
@@ -15,7 +15,7 @@ public class SignInEvent {
 
     private int eventType;
     private String errorMesage;
-    private Usuario usuario;
+    private User user;
 
     public int getEventType() {
         return eventType;
@@ -33,11 +33,11 @@ public class SignInEvent {
         this.errorMesage = errorMesage;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

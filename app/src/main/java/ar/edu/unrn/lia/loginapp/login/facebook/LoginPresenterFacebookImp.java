@@ -16,11 +16,11 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.Arrays;
 import java.util.List;
 
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
 import ar.edu.unrn.lia.loginapp.login.events.FacebookEvent;
 import ar.edu.unrn.lia.loginapp.login.ui.LoginView;
+import ar.edu.unrn.lia.loginapp.model.User;
 
 /**
  * Created by Germán on 2/2/2017.
@@ -56,7 +56,7 @@ public class LoginPresenterFacebookImp implements LoginPresenterFacebook{
                 Log.i(TAG, loginResult.getAccessToken().getCurrentAccessToken().getToken().toString());
                 Log.i(TAG, loginResult.getRecentlyGrantedPermissions().toString());
                 Log.i(TAG, "Metodo logIn onSuccess LoginPresenterFacebookImp");
-                loginInteractorFacebook.doSignIn();
+                loginInteractorFacebook.doSignIn(loginView.getContext());
             }
 
             @Override
@@ -107,17 +107,19 @@ public class LoginPresenterFacebookImp implements LoginPresenterFacebook{
         }
     }
 
-    private void onLoginSuccess(Usuario usuario){
+    private void onLoginSuccess(User user){
         Log.i(TAG, "EventBus onLoginSuccess Antes del NULL");
         if (loginView != null){
             Log.i(TAG, "EventBus onLoginSuccess");
-            loginView.signInSuccessFacebook(usuario);
+            loginView.navigateToMainScreen();
+           // loginView.signInSuccessFacebook(user);
         }
     }
 
     private void onLoginError(String error){
         if (loginView != null){
             Log.i(TAG,"SIGNUP ERROR FACEBOOK");
+
             loginView.signInErrorFacebook(error);
         }
     }

@@ -1,14 +1,10 @@
 package ar.edu.unrn.lia.loginapp.login.google;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
@@ -16,13 +12,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
-import ar.edu.unrn.lia.loginapp.login.events.FacebookEvent;
 import ar.edu.unrn.lia.loginapp.login.events.GoogleEvent;
 import ar.edu.unrn.lia.loginapp.login.ui.LoginActivity;
 import ar.edu.unrn.lia.loginapp.login.ui.LoginView;
+import ar.edu.unrn.lia.loginapp.model.User;
 
 /**
  * Created by Germán on 3/2/2017.
@@ -89,7 +84,7 @@ public class LoginPresenterGoogleImp implements LoginPresenterGoogle, GoogleApiC
     private void handleSignInResult(GoogleSignInResult result, LoginActivity loginView) {
         //Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
-            loginInteractorGoogle.doSignIn(result.getSignInAccount());
+            loginInteractorGoogle.doSignIn(result.getSignInAccount(),loginView.getContext());
         } else {
             this.onLoginError("ERROR al conectar con GOOGLE");
         }
@@ -124,16 +119,16 @@ public class LoginPresenterGoogleImp implements LoginPresenterGoogle, GoogleApiC
                 break;
             case GoogleEvent.onLoginSuccess:
                 Log.i(TAG,"Metodo onEventMainThread success");
-                onLoginSuccess(event.getUsuario());
+                onLoginSuccess(event.getUser());
                 break;
         }
     }
 
-    private void onLoginSuccess(Usuario usuario){
+    private void onLoginSuccess(User user){
         Log.i(TAG, "EventBus onLoginSuccess Antes del NULL");
         if (loginView != null){
             Log.i(TAG, "EventBus onLoginSuccess");
-            loginView.signInSuccessGoogle(usuario);
+            loginView.navigateToMainScreen();
         }
     }
 

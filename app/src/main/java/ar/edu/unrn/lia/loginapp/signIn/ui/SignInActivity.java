@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import ar.edu.unrn.lia.loginapp.R;
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
+import ar.edu.unrn.lia.loginapp.entities.User;
 import ar.edu.unrn.lia.loginapp.inicio.MainActivity;
 import ar.edu.unrn.lia.loginapp.signIn.SignInPresenter;
 import ar.edu.unrn.lia.loginapp.signIn.SignInPresenterImp;
@@ -104,8 +104,8 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     }
 
     @Override
-    public void signInSuccess(Usuario usuario){
-        guardarEnPreferencias(usuario);
+    public void signInSuccess(User user){
+        guardarEnPreferencias(user);
         navigateToMainScreen();
     }
     private void setInputs(boolean enabled){
@@ -114,7 +114,7 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
         btnSignin.setEnabled(enabled);
     }
 
-    private void guardarEnPreferencias(Usuario u) {
+    private void guardarEnPreferencias(User u) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(getString(R.string.datos_nombre_key), u.getNombre());

@@ -1,14 +1,9 @@
 package ar.edu.unrn.lia.loginapp.signUp;
 
-import android.content.SharedPreferences;
-import android.support.v7.preference.PreferenceManager;
-import android.util.Log;
-
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import ar.edu.unrn.lia.loginapp.R;
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
-import ar.edu.unrn.lia.loginapp.entities.Usuario_Table;
+import ar.edu.unrn.lia.loginapp.entities.User;
+import ar.edu.unrn.lia.loginapp.entities.User_Table;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
 import ar.edu.unrn.lia.loginapp.signUp.events.SignUpEvent;
@@ -21,10 +16,10 @@ public class SignUpRepositoryImp implements SignUpRepository {
     @Override
     public void signUp(String nombre, String apellido, String direccion, String email, int telefono, String password, String password2) {
         if (!existeUsuario(email,password)){
-            Usuario usuario = crearUsuario(nombre, apellido,direccion, email, telefono, password);
+            User user = crearUsuario(nombre, apellido,direccion, email, telefono, password);
             setearEstadoUsuario(email, 1);
 
-            postEvent(SignUpEvent.onSignUpSuccess, usuario);
+            postEvent(SignUpEvent.onSignUpSuccess, user);
         }else{
             postEvent(SignUpEvent.onSignUpError,"Ya existe usuario");
         }
@@ -32,43 +27,43 @@ public class SignUpRepositoryImp implements SignUpRepository {
 
     private boolean existeUsuario(String email, String password){
         boolean esta = false;
-        Usuario usuario = SQLite.select().from(Usuario.class).where(Usuario_Table.email.is(email), Usuario_Table.contraseña.is(password)).querySingle();
-        if (usuario !=null){
+        User user = SQLite.select().from(User.class).where(User_Table.email.is(email), User_Table.contraseña.is(password)).querySingle();
+        if (user !=null){
             esta = true;
         }
         return esta;
     }
 
-    private Usuario crearUsuario(String nombre, String apellido, String direccion, String email, int telefono, String password) {
-        Usuario usuario = new Usuario(nombre, apellido,direccion, email, telefono, password, true, 1);
-        usuario.save();
-        return usuario;
+    private User crearUsuario(String nombre, String apellido, String direccion, String email, int telefono, String password) {
+        User user = new User(nombre, apellido,direccion, email, telefono, password, true, 1);
+        user.save();
+        return user;
     }
 
     private void setearEstadoUsuario(String email, int est){
-        Usuario usuario = SQLite.select().from(Usuario.class).where(Usuario_Table.email.is(email)).querySingle();
-        if (usuario != null){
-            usuario.setSesion(est);
-            usuario.save();
+        User user = SQLite.select().from(User.class).where(User_Table.email.is(email)).querySingle();
+        if (user != null){
+            user.setSesion(est);
+            user.save();
         }
     }
 
-    private void postEvent(int type, Usuario usuario){
-        postEvent(type, null, usuario);
+    private void postEvent(int type, User user){
+        postEvent(type, null, user);
     }
 
     private void postEvent(int type, String error) {
         postEvent(type, error, null);
     }
 
-    private void postEvent(int type, String errorMessage, Usuario usuario) {
+    private void postEvent(int type, String errorMessage, User user) {
         SignUpEvent signUpEvent = new SignUpEvent();
         signUpEvent.setEventType(type);
         if (errorMessage != null) {
             signUpEvent.setErrorMesage(errorMessage);
         }else{
-            if (usuario != null){
-                signUpEvent.setUsuario(usuario);
+            if (user != null){
+                signUpEvent.setUser(user);
             }
         }
 

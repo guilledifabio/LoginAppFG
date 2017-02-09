@@ -1,5 +1,7 @@
 package ar.edu.unrn.lia.loginapp.login.google;
 
+import android.content.Context;
+
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 /**
@@ -7,5 +9,5 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
  */
 
 public interface LoginInteractorGoogle {
-    void doSignIn(GoogleSignInAccount acct);
+    void doSignIn(GoogleSignInAccount acct, Context context);
 }

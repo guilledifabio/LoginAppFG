@@ -12,7 +12,7 @@ import ar.edu.unrn.lia.loginapp.api.AppDatabase;
  */
 
 @Table(database = AppDatabase.class)
-public class Usuario extends BaseModel {
+public class User extends BaseModel {
     @Column
     @PrimaryKey(autoincrement = true)
     long id;
@@ -47,7 +47,7 @@ public class Usuario extends BaseModel {
     @Column
     String localidad;
 
-    public Usuario(String nombre, String apellido, String direccion, String email, int celular, String contraseña, boolean estado, int sesion){
+    public User(String nombre, String apellido, String direccion, String email, int celular, String contraseña, boolean estado, int sesion){
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
@@ -60,7 +60,7 @@ public class Usuario extends BaseModel {
         this.localidad = null;
     }
 
-    public Usuario(){
+    public User(){
 
     }
 

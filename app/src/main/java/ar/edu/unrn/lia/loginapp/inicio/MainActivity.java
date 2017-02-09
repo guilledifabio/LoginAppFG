@@ -3,7 +3,6 @@ package ar.edu.unrn.lia.loginapp.inicio;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Process;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -18,18 +17,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import ar.edu.unrn.lia.loginapp.R;
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
-import ar.edu.unrn.lia.loginapp.entities.Usuario_Table;
+import ar.edu.unrn.lia.loginapp.entities.User;
+//import ar.edu.unrn.lia.loginapp.entities.Usuario_Table;
 //import ar.edu.unrn.lia.loginapp.pref_headers.DatosPersonalesActivity;
 import ar.edu.unrn.lia.loginapp.preference.SettingsActivity;
 import butterknife.BindView;
@@ -177,13 +170,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setearEstadoUsuario(int estado){
-        Usuario usuario = SQLite.select().from(Usuario.class).where(Usuario_Table.email.is(email)).querySingle();
-        Log.e(TAG,usuario.getNombre());
-        if (usuario != null){
-            //Log.i(TAG,"setear usuario: "+usuario.getNombre());
-            usuario.setSesion(estado);
-            usuario.save();
-        }
+      /*  User user = SQLite.select().from(User.class).where(Usuario_Table.email.is(email)).querySingle();
+        Log.e(TAG, user.getNombre());
+        if (user != null){
+            //Log.i(TAG,"setear user: "+user.getNombre());
+            user.setSesion(estado);
+            user.save();
+        }*/
     }
 
     protected void onDestroy(){

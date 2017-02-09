@@ -5,7 +5,7 @@
     <string name="login.button.signin">Ingresar</string>
     <string name="login.txt.signup">¿No tiene cuenta? Crear cuenta</string>
     <string name="login.error.message.signin">No es posible iniciar sesión %s</string>
-    <string name="login.error.message.signup">No es posible registrar nuevo usuario %s</string>
+    <string name="login.error.message.signup">No es posible registrar nuevo user %s</string>
     <string name="login.notice.message.signup">Usuario agregado exitosamente</string>
 
     <string name="signup.message.nombre">Nombre</string>
@@ -42,6 +42,7 @@
     <string name="datos_nombre_key">name</string>
     <string name="datos_apellido_key">lastname</string>
     <string name="datos_direccion_key">address</string>
+    <string name="datos_birthday_key">birthday</string>
     <string name="datos_email_key">datos_email</string>
     <string name="datos_celular_key">phone</string>
     <string name="title_activity_main">MainActivity</string>
@@ -130,5 +131,5 @@
     <string name="pref_title_personal_data">Datos Personales</string>
 
     <!-- Facebook -->
-    <string name="facebook_app_id">1254049331342168</string>
+    <string name="facebook_app_id">1827126477527600</string>
 </resources>

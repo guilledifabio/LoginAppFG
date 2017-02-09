@@ -82,7 +82,7 @@ public class SettingsActivity extends AppCompatActivity {
             onSharedPreferenceChanged(sharedPreferences, getString(R.string.notification_time_key));
 //            onSharedPreferenceChanged(sharedPreferences, getString(R.string.provincia_key));
 //            onSharedPreferenceChanged(sharedPreferences, getString(R.string.localidad_key));
-//            onSharedPreferenceChanged(sharedPreferences, getString(R.string.pais_key));
+            onSharedPreferenceChanged(sharedPreferences, getString(R.string.datos_birthday_key));
             onSharedPreferenceChanged(sharedPreferences, getString(R.string.datos_nombre_key));
             onSharedPreferenceChanged(sharedPreferences, getString(R.string.datos_apellido_key));
             onSharedPreferenceChanged(sharedPreferences, getString(R.string.datos_direccion_key));
@@ -128,7 +128,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         protected static void setListPreferenceData(ListPreference lp, String p) {
 
-            switch (p){
+            switch (p) {
                 case "Provincia1":
                     lp.setEntries(R.array.Provincia1);
                     lp.setEntryValues(R.array.Provincia1);

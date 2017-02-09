@@ -9,7 +9,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
+import ar.edu.unrn.lia.loginapp.entities.User;
 
 /**
  * Created by Germán on 18/1/2017.
@@ -17,7 +17,7 @@ import ar.edu.unrn.lia.loginapp.entities.Usuario;
 
 public class LoginApp extends Application {
     static final String TAG = LoginApp.class.getSimpleName();
-    private Usuario usuario;
+    private User user;
     private SharedPreferences sharedPref;
 
     public void onCreate() {

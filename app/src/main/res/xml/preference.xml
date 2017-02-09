@@ -37,6 +37,12 @@
             android:title="Apellido" />
 
         <android.support.v7.preference.EditTextPreference
+            android:id="@+id/birthday"
+            android:key="birthday"
+            android:summary="Birthday"
+            android:title="Birthday" />
+
+        <android.support.v7.preference.EditTextPreference
             android:id="@+id/address"
             android:key="address"
             android:summary="Dirección"

@@ -1,6 +1,6 @@
 package ar.edu.unrn.lia.loginapp.signUp.ui;
 
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
+import ar.edu.unrn.lia.loginapp.entities.User;
 
 /**
  * Created by Germán on 24/1/2017.
@@ -16,7 +16,7 @@ public interface SignUpView {
     void handleSignUp();
 
     void navigateToMainScreen();
-    void signUpSuccess(Usuario usuario);
+    void signUpSuccess(User user);
     void signUpError(String error);
     void navigateToSignInScreen();
 }

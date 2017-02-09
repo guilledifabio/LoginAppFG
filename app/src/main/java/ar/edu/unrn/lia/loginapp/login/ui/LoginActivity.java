@@ -17,7 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 
 import ar.edu.unrn.lia.loginapp.R;
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
+import ar.edu.unrn.lia.loginapp.entities.User;
 import ar.edu.unrn.lia.loginapp.inicio.MainActivity;
 import ar.edu.unrn.lia.loginapp.login.LoginPresenter;
 import ar.edu.unrn.lia.loginapp.login.LoginPresenterImp;
@@ -61,21 +61,21 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         loginPresenterFacebook = new LoginPresenterFacebookImp(this);
         loginPresenterFacebook.onCreate();
         btnLoginFacebook.setReadPermissions("email", "public_profile", "user_birthday", "user_photos");
-        //Fin Facebook ---------------------------------------------------------
+        //Fin Facebook -----------------------------------------------------
 
-        //Google
+        //Google -----------------------------------------------------------
         btnLoginGoogle.setSize(SignInButton.SIZE_STANDARD);
 
         loginPresenterGoogle = new LoginPresenterGoogleImp(this);
         loginPresenterGoogle.onCreate();
         loginPresenterGoogle.createGoogleClient(this);
-        //Fin Google
+        //Fin Google -------------------------------------------------------
 
-        //Chequear por usuario ya logueado
+        //Chequear por usuario ya logueado ---------------------------------
         loginPresenter = new LoginPresenterImp(this);
         loginPresenter.onCreate();
         loginPresenter.checkForAuthenticatedUser();
-        //Fin chequear por usuario ya logueado
+        //Fin chequear por usuario ya logueado -----------------------------
     }
 
     @Override
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     protected void onDestroy() {
-        Log.i(TAG,"onDestroy Login");
+        Log.i(TAG, "onDestroy Login");
         super.onDestroy();
 
         loginPresenterFacebook.onDestroy();
@@ -118,17 +118,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         loginPresenterGoogle.onActivityResult(LoginActivity.this, requestCode, responseCode, intent);
     }
 
-    @Override
-    public void guardarEnPreferencias(Usuario u) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(getString(R.string.datos_nombre_key), u.getNombre());
-        editor.putString(getString(R.string.datos_apellido_key), u.getApellido());
-        editor.putString(getString(R.string.datos_direccion_key), u.getDireccion());
-        editor.putString(getString(R.string.datos_email_key), u.getEmail());
-        editor.putString(getString(R.string.datos_celular_key), String.valueOf(u.getCelular()));
-        editor.apply();
-    }
 
     @Override
     public void navigateToMainScreen() {
@@ -142,23 +131,19 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         return this.getApplicationContext();
     }
 
-    @Override
-    public void signInSuccessFacebook(Usuario usuario) {
-        guardarEnPreferencias(usuario);
-        navigateToMainScreen();
-    }
 
     @Override
     public void signInErrorFacebook(String error) {
-        Snackbar.make(container, "Error sign in Facebook", Snackbar.LENGTH_LONG);
+        Snackbar.make(container, "Error sign in Facebook "+error.toString(), Snackbar.LENGTH_LONG);
     }
 
-    @Override
-    public void signInSuccessGoogle(Usuario usuario) {
-        guardarEnPreferencias(usuario);
-        navigateToMainScreen();
-    }
-
+    /*
+        @Override
+        public void signInSuccessGoogle(User user) {
+            guardarEnPreferencias(user);
+            navigateToMainScreen();
+        }
+    */
     @Override
     public void signInErrorGoogle(String error) {
         Snackbar.make(container, error, Snackbar.LENGTH_LONG);

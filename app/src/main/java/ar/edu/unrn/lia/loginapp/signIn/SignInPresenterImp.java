@@ -1,10 +1,8 @@
 package ar.edu.unrn.lia.loginapp.signIn;
 
-import android.util.Log;
-
 import org.greenrobot.eventbus.Subscribe;
 
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
+import ar.edu.unrn.lia.loginapp.entities.User;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
 import ar.edu.unrn.lia.loginapp.signIn.events.SignInEvent;
@@ -46,9 +44,9 @@ public class SignInPresenterImp implements SignInPresenter {
         signInIteractor.doSignIn(email, password);
     }
 
-    private void onSignInSuccess(Usuario usuario){
+    private void onSignInSuccess(User user){
         if (signInView != null){
-            signInView.signInSuccess(usuario);
+            signInView.signInSuccess(user);
         }
     }
 
@@ -90,7 +88,7 @@ public class SignInPresenterImp implements SignInPresenter {
                 onSignInError(event.getErrorMesage());
                 break;
             case SignInEvent.onSignInSuccess:
-                onSignInSuccess(event.getUsuario());
+                onSignInSuccess(event.getUser());
                 break;
             case SignInEvent.onFailedToRecoverSession:
                 onFailedToRecoverSession();

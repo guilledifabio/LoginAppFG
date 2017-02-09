@@ -1,6 +1,7 @@
 package ar.edu.unrn.lia.loginapp.login.facebook;
 
 
+import android.content.Context;
 import android.util.Log;
 
 /**
@@ -17,9 +18,9 @@ public class LoginInteractorFacebookImp implements LoginInteractorFacebook {
     }
 
     @Override
-    public void doSignIn() {
+    public void doSignIn(Context context) {
         Log.i(TAG,"Metodo doSignIn LoginInteractorFacebookImp");
-        loginRepositoryFacebook.signIn();
+        loginRepositoryFacebook.signIn(context);
     }
 
 }

@@ -1,5 +1,7 @@
 package ar.edu.unrn.lia.loginapp.login.google;
 
+import android.content.Context;
+
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import ar.edu.unrn.lia.loginapp.login.facebook.LoginInteractorFacebookImp;
@@ -16,7 +18,7 @@ public class LoginInteractorGoogleImp implements LoginInteractorGoogle {
     }
 
     @Override
-    public void doSignIn(GoogleSignInAccount acct) {
-        loginRepositoryGoogle.signIn(acct);
+    public void doSignIn(GoogleSignInAccount acct, Context context) {
+        loginRepositoryGoogle.signIn(acct, context);
     }
 }

@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ar.edu.unrn.lia.loginapp.R;
-import ar.edu.unrn.lia.loginapp.entities.Usuario;
+import ar.edu.unrn.lia.loginapp.entities.User;
 import ar.edu.unrn.lia.loginapp.inicio.MainActivity;
 import ar.edu.unrn.lia.loginapp.signIn.ui.SignInActivity;
 import ar.edu.unrn.lia.loginapp.signUp.SignUpPresenter;
@@ -90,8 +90,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
     }
 
     @Override
-    public void signUpSuccess(Usuario usuario) {
-        guardarEnPreferencias(usuario);
+    public void signUpSuccess(User user) {
+        guardarEnPreferencias(user);
     }
 
     @Override
@@ -265,7 +265,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
         }
     }
 
-    private void guardarEnPreferencias(Usuario u) {
+    private void guardarEnPreferencias(User u) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(getString(R.string.datos_nombre_key), u.getNombre());
