@@ -44,6 +44,7 @@ public class User {
     public void saveCash(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         save_cash = preferences.edit();
+        //commit
         //save_cash = context.getSharedPreferences(Constants.USER_INFO, Context.MODE_PRIVATE).edit();
         save_cash.putString(Constants.USER_NAME, user_name);
         save_cash.putString(Constants.NAME, name);
