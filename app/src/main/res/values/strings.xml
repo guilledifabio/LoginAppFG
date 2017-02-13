@@ -132,4 +132,5 @@
 
     <!-- Facebook -->
     <string name="facebook_app_id">1827126477527600</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
