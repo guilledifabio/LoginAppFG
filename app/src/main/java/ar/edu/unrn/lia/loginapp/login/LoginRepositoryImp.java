@@ -2,15 +2,8 @@ package ar.edu.unrn.lia.loginapp.login;
 
 import android.util.Log;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
-
-//import ar.edu.unrn.lia.loginapp.entities.User;
-//import ar.edu.unrn.lia.loginapp.entities.Usuario_Table;
 import ar.edu.unrn.lia.loginapp.domain.FirebaseHelper;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;

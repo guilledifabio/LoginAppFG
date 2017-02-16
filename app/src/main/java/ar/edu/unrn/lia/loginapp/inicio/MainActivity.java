@@ -22,6 +22,7 @@ import com.facebook.login.LoginManager;
 import ar.edu.unrn.lia.loginapp.R;
 //import ar.edu.unrn.lia.loginapp.entities.Usuario_Table;
 //import ar.edu.unrn.lia.loginapp.pref_headers.DatosPersonalesActivity;
+import ar.edu.unrn.lia.loginapp.map.MapsActivity;
 import ar.edu.unrn.lia.loginapp.model.User;
 import ar.edu.unrn.lia.loginapp.preference.SettingsActivity;
 import butterknife.BindView;
@@ -142,17 +143,19 @@ public class MainActivity extends AppCompatActivity
                 //  fragment = new CategoríaFragment();
                 //  fragmentTransaction = true;
                 break;
+            case R.id.nav_map:
+                Log.d("MainActivity", "Boton Mapa");
+                startActivity(new Intent(this, MapsActivity.class));
+                break;
             case R.id.nav_ajustes:
                 Log.d("MainActivity", "Boton Ajustes");
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.nav_salir:
-                setearEstadoUsuario(0);
-
                 //Salir de Facebook
-                disconnect();
+                disconnectFromFacebook();
                 //Fin salir de Facebook
-
+                disconnect();
                 finishAffinity();
                 System.exit(0);
 
@@ -176,16 +179,6 @@ public class MainActivity extends AppCompatActivity
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void setearEstadoUsuario(int estado){
-      /*  User user = SQLite.select().from(User.class).where(Usuario_Table.email.is(email)).querySingle();
-        Log.e(TAG, user.getNombre());
-        if (user != null){
-            //Log.i(TAG,"setear user: "+user.getNombre());
-            user.setSesion(estado);
-            user.save();
-        }*/
     }
 
     protected void onDestroy(){

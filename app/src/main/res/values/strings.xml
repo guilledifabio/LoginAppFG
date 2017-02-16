@@ -132,4 +132,10 @@
 
     <!-- Facebook -->
     <string name="facebook_app_id">721026268059084</string>
+
+    <!-- Map -->
+    <string name="title_activity_maps">Mapa</string>
+    <string name="google_maps_key">AIzaSyCC8p_L0izPhvx-jUrH5pxG1Rux_NYNeSs</string>
+
+
 </resources>

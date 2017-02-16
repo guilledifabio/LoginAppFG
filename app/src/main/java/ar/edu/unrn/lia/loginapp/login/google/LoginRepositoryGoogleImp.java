@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
