@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import ar.edu.unrn.lia.loginapp.domain.FirebaseHelper;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
+import ar.edu.unrn.lia.loginapp.model.Constants;
 import ar.edu.unrn.lia.loginapp.model.User;
 import ar.edu.unrn.lia.loginapp.model.User_Firebase;
 import ar.edu.unrn.lia.loginapp.signUp.events.SignUpEvent;
@@ -34,13 +35,9 @@ public class SignUpRepositoryImp implements SignUpRepository {
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i(TAG, "onDataChange");
-                Log.i(TAG, dataSnapshot.getKey().toString());
-                Log.i(TAG, dataSnapshot.toString());
-                Log.i(TAG, String.valueOf(dataSnapshot.getChildrenCount()));
+
 
                 User_Firebase user_firebase = dataSnapshot.getValue(User_Firebase.class);
-//                Log.i(TAG, user_firebase.toString());
                 if (user_firebase == null) { //No existe usuario con Email = email en BD
                     Log.i(TAG, "user_firebase == null");
 
@@ -53,7 +50,7 @@ public class SignUpRepositoryImp implements SignUpRepository {
                     user.setPhone(telefono);
                     user.setUsername(nombre+"_"+apellido);
                     user.saveCash(context);
-                    helper.writeNewUser(email, nombre, apellido, password);
+                    helper.writeNewUser(email, nombre, apellido, password, Constants.SIGNIN_EMAIL);
                     postEvent(SignUpEvent.onSignUpSuccess);
                 }else{
                     Log.i(TAG, "User " + email + " is unexpectedly not null");
