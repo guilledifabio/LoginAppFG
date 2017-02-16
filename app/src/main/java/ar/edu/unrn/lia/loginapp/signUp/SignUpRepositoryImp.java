@@ -1,11 +1,21 @@
 package ar.edu.unrn.lia.loginapp.signUp;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import ar.edu.unrn.lia.loginapp.entities.User;
+import ar.edu.unrn.lia.loginapp.domain.FirebaseHelper;
 import ar.edu.unrn.lia.loginapp.entities.User_Table;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
+import ar.edu.unrn.lia.loginapp.model.User;
+import ar.edu.unrn.lia.loginapp.model.User_Firebase;
+import ar.edu.unrn.lia.loginapp.signIn.events.SignInEvent;
 import ar.edu.unrn.lia.loginapp.signUp.events.SignUpEvent;
 
 /**
@@ -13,62 +23,66 @@ import ar.edu.unrn.lia.loginapp.signUp.events.SignUpEvent;
  */
 
 public class SignUpRepositoryImp implements SignUpRepository {
+    private static final String TAG = "SignUpRepositoryImp";
+    private FirebaseHelper helper;
+    private DatabaseReference userReference;
+
+    public SignUpRepositoryImp(){
+        helper = FirebaseHelper.getInstance();
+    }
+
     @Override
-    public void signUp(String nombre, String apellido, String direccion, String email, int telefono, String password, String password2) {
-        if (!existeUsuario(email,password)){
-            User user = crearUsuario(nombre, apellido,direccion, email, telefono, password);
-            setearEstadoUsuario(email, 1);
+    public void signUp(final String nombre, final String apellido, String direccion, final String email, final String telefono, final String password, String password2, final Context context) {
+        userReference = helper.getUserReference(email);
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i(TAG, "onDataChange");
+                Log.i(TAG, dataSnapshot.getKey().toString());
+                Log.i(TAG, dataSnapshot.toString());
+                Log.i(TAG, String.valueOf(dataSnapshot.getChildrenCount()));
 
-            postEvent(SignUpEvent.onSignUpSuccess, user);
-        }else{
-            postEvent(SignUpEvent.onSignUpError,"Ya existe usuario");
-        }
+                User_Firebase user_firebase = dataSnapshot.getValue(User_Firebase.class);
+//                Log.i(TAG, user_firebase.toString());
+                if (user_firebase == null) { //No existe usuario con Email = email en BD
+                    Log.i(TAG, "user_firebase == null");
+
+                    User user = User.getInstance();
+                    user.setLast_name(apellido);
+                    user.setName(nombre);
+                    user.setAvatarURL("");
+                    user.setBirthday("");
+                    user.setEmail(email);
+                    user.setPhone(telefono);
+                    user.setUsername(nombre+"_"+apellido);
+                    user.saveCash(context);
+                    helper.writeNewUser(email, nombre, apellido, password);
+                    postEvent(SignUpEvent.onSignUpSuccess);
+                }else{
+                    Log.i(TAG, "User " + email + " is unexpectedly not null");
+                    postEvent(SignUpEvent.onSignUpError, "User " + email + " is unexpectedly not null");
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+                Log.i(TAG, "onCancelled"+firebaseError.toString());
+                postEvent(SignUpEvent.onSignUpError);
+            }
+        });
     }
 
-    private boolean existeUsuario(String email, String password){
-        boolean esta = false;
-        User user = SQLite.select().from(User.class).where(User_Table.email.is(email), User_Table.contraseña.is(password)).querySingle();
-        if (user !=null){
-            esta = true;
-        }
-        return esta;
+    private void postEvent(int type){
+        postEvent(type, null);
     }
 
-    private User crearUsuario(String nombre, String apellido, String direccion, String email, int telefono, String password) {
-        User user = new User(nombre, apellido,direccion, email, telefono, password, true, 1);
-        user.save();
-        return user;
-    }
-
-    private void setearEstadoUsuario(String email, int est){
-        User user = SQLite.select().from(User.class).where(User_Table.email.is(email)).querySingle();
-        if (user != null){
-            user.setSesion(est);
-            user.save();
-        }
-    }
-
-    private void postEvent(int type, User user){
-        postEvent(type, null, user);
-    }
-
-    private void postEvent(int type, String error) {
-        postEvent(type, error, null);
-    }
-
-    private void postEvent(int type, String errorMessage, User user) {
+    private void postEvent(int type, String errorMessage) {
         SignUpEvent signUpEvent = new SignUpEvent();
         signUpEvent.setEventType(type);
         if (errorMessage != null) {
             signUpEvent.setErrorMesage(errorMessage);
-        }else{
-            if (user != null){
-                signUpEvent.setUser(user);
-            }
         }
 
         EventBus eventBus = GreenRobotEventBus.getInstance();
         eventBus.post(signUpEvent);
     }
-
 }

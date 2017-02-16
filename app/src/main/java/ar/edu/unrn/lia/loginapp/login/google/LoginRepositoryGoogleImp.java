@@ -25,46 +25,30 @@ public class LoginRepositoryGoogleImp implements LoginRepositoryGoogle {
     @Override
     public void signIn(GoogleSignInAccount acct, Context context) {
         String email = acct.getEmail();
+
+        //Comprobar que usuario esté en la BD y sinó agregarlo
+        //Firebase
+        //Fin comprobar BD
+
         String first_name = acct.getGivenName();
         String last_name = acct.getFamilyName();
-        String profilePicUrl = acct.getPhotoUrl().toString();
+//        String profilePicUrl = acct.getPhotoUrl().toString();
         String birthday = "";
 
-        ar.edu.unrn.lia.loginapp.model.User user = ar.edu.unrn.lia.loginapp.model.User.getInstance();
-        user.setAvatarURL(profilePicUrl);
+        User user = User.getInstance();
+
         user.setBirthday(birthday);
         user.setEmail(email);
-        user.setAvatarURL(profilePicUrl);
+        user.setPhone("0000");
+        user.setAvatarURL("");
         user.setLast_name(last_name);
         user.setName(first_name);
         String userName = new StringBuilder().append(last_name).append(" ").append(first_name).toString();
         user.setUsername(userName);
 
         user.saveCash(context);
-//        setearEstadoUsuario(email, 1);
         postEvent(GoogleEvent.onLoginSuccess, null, user);
     }
-    /*
-    public void signIn(GoogleSignInAccount acct, Context context) {
-        String email = acct.getEmail();
-        String first_name = acct.getGivenName();
-        String last_name = acct.getFamilyName();
-        User user = new User(first_name, last_name, null, email, 0, null, true, 1);
-        user.save();
-
-        Log.i(TAG, "Emal en GraphRequest" + email);
-
-        setearEstadoUsuario(email, 1);
-        postEvent(GoogleEvent.onLoginSuccess, null, user);
-    }*/
-/*
-    private void setearEstadoUsuario(String email, int est){
-        User user = SQLite.select().from(User.class).where(Usuario_Table.email.is(email)).querySingle();
-        if (user != null){
-            user.setSesion(est);
-            user.save();
-        }
-    }*/
 
     private void postEvent(int type, String errorMessage, User user) {
         Log.i(TAG,"Metodo postEvent");

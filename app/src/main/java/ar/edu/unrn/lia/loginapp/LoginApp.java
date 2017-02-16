@@ -6,10 +6,11 @@ import android.preference.PreferenceManager;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
-import ar.edu.unrn.lia.loginapp.entities.User;
+import ar.edu.unrn.lia.loginapp.entities.User_Table;
 
 /**
  * Created by Germán on 18/1/2017.
@@ -17,7 +18,7 @@ import ar.edu.unrn.lia.loginapp.entities.User;
 
 public class LoginApp extends Application {
     static final String TAG = LoginApp.class.getSimpleName();
-    private User user;
+    private User_Table user;
     private SharedPreferences sharedPref;
 
     public void onCreate() {
@@ -27,7 +28,6 @@ public class LoginApp extends Application {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
-
     }
 
     /**

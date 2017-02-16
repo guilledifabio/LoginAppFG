@@ -1,25 +1,31 @@
 {
   "project_info": {
-    "project_number": "1093122949269",
-    "project_id": "loginapp-a8702"
+    "project_number": "1080404288194",
+    "firebase_url": "https://fir-loginappfg.firebaseio.com",
+    "project_id": "firebase-loginappfg",
+    "storage_bucket": "firebase-loginappfg.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1093122949269:android:775871c463625251",
+        "mobilesdk_app_id": "1:1080404288194:android:775871c463625251",
         "android_client_info": {
           "package_name": "ar.edu.unrn.lia.loginapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1093122949269-0mefm37j07sp0g9su74m3k2e9s9k9nf4.apps.googleusercontent.com",
+          "client_id": "1080404288194-epp07585fb517ddvf97sqhp68uoj5evo.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1080404288194-ubk1ajtbjg4hnmhtiijf7dr5r0rp3200.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyARpeUtVjHgQoDPJJvR1FmSEJJ06RsyM4w"
+          "current_key": "AIzaSyCC8p_L0izPhvx-jUrH5pxG1Rux_NYNeSs"
         }
       ],
       "services": {
@@ -31,7 +37,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

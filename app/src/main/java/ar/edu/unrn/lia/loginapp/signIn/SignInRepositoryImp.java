@@ -1,11 +1,18 @@
 package ar.edu.unrn.lia.loginapp.signIn;
 
-import com.raizlabs.android.dbflow.sql.language.SQLite;
+import android.content.Context;
+import android.util.Log;
 
-import ar.edu.unrn.lia.loginapp.entities.User;
-import ar.edu.unrn.lia.loginapp.entities.User_Table;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import ar.edu.unrn.lia.loginapp.domain.FirebaseHelper;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
+import ar.edu.unrn.lia.loginapp.model.User;
+import ar.edu.unrn.lia.loginapp.model.User_Firebase;
 import ar.edu.unrn.lia.loginapp.signIn.events.SignInEvent;
 
 /**
@@ -14,75 +21,72 @@ import ar.edu.unrn.lia.loginapp.signIn.events.SignInEvent;
 
 public class SignInRepositoryImp implements SignInRepository {
     private static final String TAG = "RepositoryImp";
+    private FirebaseHelper helper;
+    private DatabaseReference userReference;
+
     public SignInRepositoryImp(){
-
+        helper = FirebaseHelper.getInstance();
     }
 
     @Override
-    public void signIn(String email, String password) {
-        if (existeUsuario(email,password)){
-            setearEstadoUsuario(email, 1);
-            postEvent(SignInEvent.onSignInSuccess, getUsuario(email, password));
-        }else{
-            postEvent(SignInEvent.onSignInError, "User y/o Contraseña Incorrecta");
-        }
-    }
-/*
-    @Override
-    public void checkSession() {
-        User usuario = SQLite.select().from(User.class).where(Usuario_Table.sesion.is(1)).querySingle();
-        Log.i(TAG, "CheckForAuth ");
-        if (usuario != null){
-            postEvent(SignInEvent.onSuccessToRecoverSession);
-            Log.i(TAG, "checkSesionSuccess");
-        }else{
-            postEvent(SignInEvent.onFailedToRecoverSession);
-            Log.i(TAG, "checkSesionFailed");
-        }
-    }*/
+    public void signIn(final String email, final String password, final Context context) {
+        userReference = helper.getUserReference(email);
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i(TAG, "onDataChange");
+                /*
+                Log.i(TAG, dataSnapshot.getKey().toString());
+                Log.i(TAG, dataSnapshot.toString());
+                Log.i(TAG, String.valueOf(dataSnapshot.getChildrenCount()));
+                Log.i(TAG, String.valueOf(dataSnapshot.child("contraseña").getValue().toString()));
+*/
+                User_Firebase user_firebase = dataSnapshot.getValue(User_Firebase.class);
 
-    private boolean existeUsuario(String email, String password){
-        boolean esta = false;
-        User user = SQLite.select().from(User.class).where(User_Table.email.is(email), User_Table.contraseña.is(password)).querySingle();
-        if (user !=null){
-            esta = true;
-        }
-        return esta;
-    }
+                if (user_firebase == null) {
+                    Log.i(TAG, "User " + email + " is unexpectedly null");
+                    postEvent(SignInEvent.onSignInError, "User " + email + " is unexpectedly null");
+                }else{
+                    if (password.equals(dataSnapshot.child("contraseña").getValue().toString())){
+                        User user = User.getInstance();
+                        user.setAvatarURL("");
+                        user.setBirthday("");
+                        user.setEmail(email);
+                        user.setAvatarURL("");
+                        user.setLast_name(dataSnapshot.child("apellido").getValue().toString());
+                        user.setName(dataSnapshot.child("nombre").getValue().toString());
 
-    private void setearEstadoUsuario(String email, int est){
-        User user = SQLite.select().from(User.class).where(User_Table.email.is(email)).querySingle();
-        if (user != null){
-            user.setSesion(est);
-            user.save();
-        }
-    }
+                        user.setUsername("");
 
-    private void postEvent(int type, User user){
-        postEvent(type, null, user);
-    }
+                        user.saveCash(context);
+                        postEvent(SignInEvent.onSignInSuccess);
+                    }else{
+                        postEvent(SignInEvent.onSignInError, "Contraseña Incorrecta");
+                    }
+                }
 
-    private void postEvent(int type, String error) {
-        postEvent(type, error, null);
+            }
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+                Log.i(TAG, "onCancelled");
+                postEvent(SignInEvent.onSignInError);
+            }
+        });
     }
 
-    private void postEvent(int type, String errorMessage, User user) {
+    private void postEvent(int type){
+        postEvent(type, null);
+    }
+
+    private void postEvent(int type, String errorMessage) {
         SignInEvent signInEvent = new SignInEvent();
         signInEvent.setEventType(type);
         if (errorMessage != null) {
             signInEvent.setErrorMesage(errorMessage);
-        }else{
-            if (user != null){
-                signInEvent.setUser(user);
-            }
         }
 
         EventBus eventBus = GreenRobotEventBus.getInstance();
         eventBus.post(signInEvent);
     }
 
-    private User getUsuario(String email, String password){
-        User user = SQLite.select().from(User.class).where(User_Table.email.is(email)).querySingle();
-        return user;
-    }
 }

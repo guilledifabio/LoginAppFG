@@ -18,12 +18,11 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import ar.edu.unrn.lia.loginapp.R;
-import ar.edu.unrn.lia.loginapp.entities.User;
 //import ar.edu.unrn.lia.loginapp.entities.Usuario_Table;
 //import ar.edu.unrn.lia.loginapp.pref_headers.DatosPersonalesActivity;
+import ar.edu.unrn.lia.loginapp.model.User;
 import ar.edu.unrn.lia.loginapp.preference.SettingsActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +37,8 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
 
+    private User user;
+
     private String email;
 
     @Override
@@ -46,6 +47,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        user = User.getInstance();
+        email = user.getEmail();
+        if (email != null){
+            Log.i(TAG, email);
+        }else{
+            Log.i(TAG, "Email NULL");
+        }
+ /*
         //Obtengo email del usuario mediante Preferencias
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         email = preferences.getString(getString(R.string.datos_email_key), "");
@@ -55,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         }else{
             Log.i(TAG, "Email NULL");
         }
-
+*/
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -141,7 +150,7 @@ public class MainActivity extends AppCompatActivity
                 setearEstadoUsuario(0);
 
                 //Salir de Facebook
-                disconnectFromFacebook();
+                disconnect();
                 //Fin salir de Facebook
 
                 finishAffinity();
@@ -192,5 +201,9 @@ public class MainActivity extends AppCompatActivity
             Log.i(TAG,"accesTocken != NULL");
             LoginManager.getInstance().logOut();
         }
+    }
+
+    public void disconnect(){
+        user.setEmail(null);
     }
 }

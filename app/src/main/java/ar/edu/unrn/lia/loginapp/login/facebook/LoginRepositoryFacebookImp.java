@@ -7,16 +7,15 @@ import android.util.Log;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ar.edu.unrn.lia.loginapp.entities.User;
 //import ar.edu.unrn.lia.loginapp.entities.Usuario_Table;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
 import ar.edu.unrn.lia.loginapp.login.events.FacebookEvent;
+import ar.edu.unrn.lia.loginapp.model.User;
 
 /**
  * Created by Germán on 4/2/2017.
@@ -48,10 +47,13 @@ public class LoginRepositoryFacebookImp implements LoginRepositoryFacebook {
                             String birthday = object.getString("birthday");
                             String profilePicUrl = object.getJSONObject("picture").getJSONObject("data").getString("url");
 
+                            //Comprobar que esté en la BD y sinó agregarlo
+                            //Firebase
+                            //Fin comprobar BD
 
                             // User usuario = new User(first_name, last_name, null, email, 0, null, true, 1);
                             //usuario.save();
-                            ar.edu.unrn.lia.loginapp.model.User user = ar.edu.unrn.lia.loginapp.model.User.getInstance();
+                            User user = User.getInstance();
                             user.setAvatarURL(profilePicUrl);
                             user.setBirthday(birthday);
                             user.setEmail(email);
@@ -65,7 +67,6 @@ public class LoginRepositoryFacebookImp implements LoginRepositoryFacebook {
 
                             user.saveCash(context);
 
-                            //setearEstadoUsuario(email, 1);
                             postEvent(FacebookEvent.onLoginSuccess, null, user);
 
                         } catch (JSONException e) {
@@ -80,14 +81,6 @@ public class LoginRepositoryFacebookImp implements LoginRepositoryFacebook {
         request.setParameters(parameters);
         request.executeAsync();
         //fin obtener email
-    }
-
-    private void setearEstadoUsuario(String email, int est) {
-    /*    User user = SQLite.select().from(User.class).where(Usuario_Table.email.is(email)).querySingle();
-        if (user != null) {
-            user.setSesion(est);
-            user.save();
-        }*/
     }
 
     private void postEvent(int type, String errorMessage, ar.edu.unrn.lia.loginapp.model.User user) {

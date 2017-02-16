@@ -50,6 +50,7 @@ public class User {
         save_cash.putString(Constants.NAME, name);
         save_cash.putString(Constants.LAST_NAME, last_name);
         save_cash.putString(Constants.USER_EMAIL, email);
+        save_cash.putString(Constants.USER_PHONE, phone);
         save_cash.putString(Constants.USER_BDAY, birthday);
         save_cash.putString(Constants.USER_AVATAR, avatar);
         save_cash.putInt(Constants.LOGIN_STATUS, login_status);
@@ -119,5 +120,15 @@ public class User {
     public void setUsername(String user_name) {
         this.user_name = user_name;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
 }
 

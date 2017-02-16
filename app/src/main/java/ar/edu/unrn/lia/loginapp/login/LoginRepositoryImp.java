@@ -2,10 +2,16 @@ package ar.edu.unrn.lia.loginapp.login;
 
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 //import ar.edu.unrn.lia.loginapp.entities.User;
 //import ar.edu.unrn.lia.loginapp.entities.Usuario_Table;
+import ar.edu.unrn.lia.loginapp.domain.FirebaseHelper;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
 import ar.edu.unrn.lia.loginapp.login.events.LoginEvent;
@@ -19,22 +25,50 @@ import ar.edu.unrn.lia.loginapp.model.User;
 public class LoginRepositoryImp implements LoginRepository {
     private static final String TAG = "LoginRepositoryImp";
 
+    DatabaseReference dbPrediccion;
+    private ValueEventListener eventListener;
+
     public LoginRepositoryImp() {
+        //helper = FirebaseHelper.getInstance();
+        //dataReference = helper.getDataReference();
     }
 
     @Override
     public void checkSession() {
-        // User user = SQLite.select().from(User.class).where(Usuario_Table.sesion.is(1)).querySingle();
+/*
+        //Firebase
+        dbPrediccion =
+                FirebaseDatabase.getInstance().getReference()
+                        .child("prediccion-hoy");
+
+        eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i(TAG, "onDataChange");
+                Log.i(TAG, dataSnapshot.child("cielo").getValue().toString());
+                Log.i(TAG, dataSnapshot.child("temperatura").getValue().toString());
+                Log.i(TAG, dataSnapshot.child("humedad").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i(TAG, "Error!", databaseError.toException());
+            }
+        };
+        dbPrediccion.addValueEventListener(eventListener);
+        //Fin Firebase
+*/
         User user = User.getInstance();
-     //   user.readCash(this); Leer datos de preferencias
         Log.i(TAG, "CheckForAuth ");
-        if (user.getLogin_status()== Constants.ONLINE) {
+        Log.i(TAG, "email --> "+user.getEmail() );
+        if (user.getEmail() != null) {
             postEvent(LoginEvent.onSuccessToRecoverSession, user);
             Log.i(TAG, "checkSesionSuccess");
         } else {
             postEvent(LoginEvent.onFailedToRecoverSession, "No hay user logueado");
             Log.i(TAG, "checkSesionFailed");
         }
+
     }
 
     private void postEvent(int type, User user) {

@@ -1,5 +1,6 @@
 package ar.edu.unrn.lia.loginapp.signIn.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import ar.edu.unrn.lia.loginapp.R;
-import ar.edu.unrn.lia.loginapp.entities.User;
 import ar.edu.unrn.lia.loginapp.inicio.MainActivity;
 import ar.edu.unrn.lia.loginapp.signIn.SignInPresenter;
 import ar.edu.unrn.lia.loginapp.signIn.SignInPresenterImp;
@@ -50,7 +50,6 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
 
         signInPresenter = new SignInPresenterImp(this);
         signInPresenter.onCreate();
-//        signInPresenter.checkForAuthenticatedUser();
     }
 
     @Override
@@ -104,8 +103,7 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     }
 
     @Override
-    public void signInSuccess(User user){
-        guardarEnPreferencias(user);
+    public void signInSuccess(){
         navigateToMainScreen();
     }
     private void setInputs(boolean enabled){
@@ -114,14 +112,8 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
         btnSignin.setEnabled(enabled);
     }
 
-    private void guardarEnPreferencias(User u) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(getString(R.string.datos_nombre_key), u.getNombre());
-        editor.putString(getString(R.string.datos_apellido_key), u.getApellido());
-        editor.putString(getString(R.string.datos_direccion_key), u.getDireccion());
-        editor.putString(getString(R.string.datos_email_key), u.getEmail());
-        editor.putString(getString(R.string.datos_celular_key), String.valueOf(u.getCelular()));
-        editor.apply();
+    @Override
+    public Context getContext() {
+        return this.getApplicationContext();
     }
 }

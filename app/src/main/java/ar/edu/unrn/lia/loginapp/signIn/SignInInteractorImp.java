@@ -1,5 +1,6 @@
 package ar.edu.unrn.lia.loginapp.signIn;
 
+import android.content.Context;
 import android.util.Log;
 
 /**
@@ -14,16 +15,10 @@ public class SignInInteractorImp implements SignInInteractor {
     public SignInInteractorImp(){
         signInRepository = new SignInRepositoryImp();
     }
-/*
-    @Override
-    public void checkSession() {
-        Log.i(TAG, "CheckForAuth");
-        signInRepository.checkSession();
-    }*/
 
     @Override
-    public void doSignIn(String email, String password) {
-        signInRepository.signIn(email, password);
+    public void doSignIn(String email, String password, Context context) {
+        signInRepository.signIn(email, password, context);
     }
 
 }

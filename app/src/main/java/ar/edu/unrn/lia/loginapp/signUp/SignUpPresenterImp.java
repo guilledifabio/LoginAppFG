@@ -2,7 +2,6 @@ package ar.edu.unrn.lia.loginapp.signUp;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import ar.edu.unrn.lia.loginapp.entities.User;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
 import ar.edu.unrn.lia.loginapp.signUp.events.SignUpEvent;
@@ -35,12 +34,12 @@ public class SignUpPresenterImp implements SignUpPresenter {
     }
 
     @Override
-    public void registerNewUser(String nombre, String apellido, String direccion, String email, int telefono, String password, String password2) {
+    public void registerNewUser(String nombre, String apellido, String direccion, String email, String telefono, String password, String password2) {
         if (signupView != null){
             signupView.disableInputs();
             signupView.showProgress();
 
-            signupInteractor.doSignUp(nombre, apellido, direccion, email, telefono, password, password2);
+            signupInteractor.doSignUp(nombre, apellido, direccion, email, telefono, password, password2, signupView.getContext());
         }
     }
 
@@ -52,15 +51,14 @@ public class SignUpPresenterImp implements SignUpPresenter {
                 onSignUpError(event.getErrorMesage());
                 break;
             case SignUpEvent.onSignUpSuccess:
-                onSignUpSuccess(event.getUser());
+                onSignUpSuccess();
                 break;
         }
     }
 
-    private void onSignUpSuccess(User user){
+    private void onSignUpSuccess(){
         if (signupView != null){
-            signupView.signUpSuccess(user);
-            signupView.navigateToMainScreen();
+            signupView.signUpSuccess();
         }
     }
 

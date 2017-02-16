@@ -27,6 +27,7 @@ public class Constants {
     public static String USER_NAME = "user_name";
     public static String USER_BDAY = "birthday";
     public static String USER_EMAIL = "user_email";
+    public static String USER_PHONE = "phone";
     public static String USER_AVATAR = "user_avatar";
 
 }

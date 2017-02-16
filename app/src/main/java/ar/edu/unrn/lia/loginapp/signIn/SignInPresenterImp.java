@@ -2,9 +2,9 @@ package ar.edu.unrn.lia.loginapp.signIn;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import ar.edu.unrn.lia.loginapp.entities.User;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
+import ar.edu.unrn.lia.loginapp.model.User;
 import ar.edu.unrn.lia.loginapp.signIn.events.SignInEvent;
 import ar.edu.unrn.lia.loginapp.signIn.ui.SignInView;
 
@@ -23,17 +23,6 @@ public class SignInPresenterImp implements SignInPresenter {
         this.eventBus = GreenRobotEventBus.getInstance();
         this.signInIteractor = new SignInInteractorImp();
     }
-/*
-    @Override
-    public void checkForAuthenticatedUser() {
-
-        if (signInView != null){
-            Log.i(TAG, "CheckForAuth -- Presenter");
-            signInView.disableInputs();
-            signInView.showProgress();
-            signInIteractor.checkSession();
-        }
-    }*/
 
     @Override
     public void validateLogin(String email, String password) {
@@ -41,12 +30,12 @@ public class SignInPresenterImp implements SignInPresenter {
             signInView.disableInputs();
             signInView.showProgress();
         }
-        signInIteractor.doSignIn(email, password);
+        signInIteractor.doSignIn(email, password, signInView.getContext());
     }
 
-    private void onSignInSuccess(User user){
+    private void onSignInSuccess(){
         if (signInView != null){
-            signInView.signInSuccess(user);
+            signInView.signInSuccess();
         }
     }
 
@@ -55,17 +44,6 @@ public class SignInPresenterImp implements SignInPresenter {
             signInView.hideProgress();
             signInView.enableInputs();
             signInView.loginError(error);
-        }
-    }
-
-    private void onSuccessToRecoverSessio(){
-        signInView.navigateToMainScreen();
-    }
-
-    private void onFailedToRecoverSession(){
-        if (signInView != null) {
-            signInView.hideProgress();
-            signInView.enableInputs();
         }
     }
 
@@ -88,13 +66,7 @@ public class SignInPresenterImp implements SignInPresenter {
                 onSignInError(event.getErrorMesage());
                 break;
             case SignInEvent.onSignInSuccess:
-                onSignInSuccess(event.getUser());
-                break;
-            case SignInEvent.onFailedToRecoverSession:
-                onFailedToRecoverSession();
-                break;
-            case SignInEvent.onSuccessToRecoverSession:
-                onSuccessToRecoverSessio();
+                onSignInSuccess();
                 break;
         }
     }

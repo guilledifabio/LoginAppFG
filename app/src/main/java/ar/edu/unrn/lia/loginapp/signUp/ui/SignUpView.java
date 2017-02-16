@@ -1,6 +1,6 @@
 package ar.edu.unrn.lia.loginapp.signUp.ui;
 
-import ar.edu.unrn.lia.loginapp.entities.User;
+import android.content.Context;
 
 /**
  * Created by Germán on 24/1/2017.
@@ -16,7 +16,8 @@ public interface SignUpView {
     void handleSignUp();
 
     void navigateToMainScreen();
-    void signUpSuccess(User user);
+    void signUpSuccess();
     void signUpError(String error);
     void navigateToSignInScreen();
+    Context getContext();
 }

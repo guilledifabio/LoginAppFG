@@ -1,6 +1,6 @@
 package ar.edu.unrn.lia.loginapp.signIn.events;
 
-import ar.edu.unrn.lia.loginapp.entities.User;
+import ar.edu.unrn.lia.loginapp.model.User;
 
 /**
  * Created by Germán on 1/2/2017.

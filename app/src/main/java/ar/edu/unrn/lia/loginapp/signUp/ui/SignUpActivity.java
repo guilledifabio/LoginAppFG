@@ -1,6 +1,7 @@
 package ar.edu.unrn.lia.loginapp.signUp.ui;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ar.edu.unrn.lia.loginapp.R;
-import ar.edu.unrn.lia.loginapp.entities.User;
 import ar.edu.unrn.lia.loginapp.inicio.MainActivity;
 import ar.edu.unrn.lia.loginapp.signIn.ui.SignInActivity;
 import ar.edu.unrn.lia.loginapp.signUp.SignUpPresenter;
@@ -90,8 +90,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
     }
 
     @Override
-    public void signUpSuccess(User user) {
-        guardarEnPreferencias(user);
+    public void signUpSuccess() {
+        this.navigateToMainScreen();
     }
 
     @Override
@@ -123,7 +123,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
         if (tipoError[0] == 0 && tipoError[1] == 0 && tipoError[2] == 0 && tipoError[3] == 0 &&
                 tipoError[4] == 0 && tipoError[5] == 0 && tipoError[6] == 0 && tipoError[7] == 0) {
             signupPresenter.registerNewUser(_nameText.getText().toString(), _lastnameText.getText().toString(),
-                    _addressText.getText().toString(), _emailText.getText().toString(), Integer.parseInt(_mobileText.getText().toString()),
+                    _addressText.getText().toString(), _emailText.getText().toString(), _mobileText.getText().toString(),
                     _passwordText.getText().toString(), _reEnterPasswordText.getText().toString());
 
         }else{
@@ -265,14 +265,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
         }
     }
 
-    private void guardarEnPreferencias(User u) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(getString(R.string.datos_nombre_key), u.getNombre());
-        editor.putString(getString(R.string.datos_apellido_key), u.getApellido());
-        editor.putString(getString(R.string.datos_direccion_key), u.getDireccion());
-        editor.putString(getString(R.string.datos_email_key), u.getEmail());
-        editor.putString(getString(R.string.datos_celular_key), String.valueOf(u.getCelular()));
-        editor.apply();
+    @Override
+    public Context getContext() {
+        return this.getApplicationContext();
     }
 }
