@@ -35,7 +35,7 @@ public class LoginRepositoryGoogleImp implements LoginRepositoryGoogle {
         final String email = acct.getEmail();
         final String first_name = acct.getGivenName();
         final String last_name = acct.getFamilyName();
-        String birthday = "";
+        final String birthday = "";
 
         //Comprobar que usuario esté en la BD y sinó agregarlo
         userReference = helper.getUserReference(email);
@@ -49,9 +49,20 @@ public class LoginRepositoryGoogleImp implements LoginRepositoryGoogle {
                     helper.writeNewUser(email, first_name, last_name, "", Constants.SIGNIN_GOOGLE);
                 }else{
                     Log.i(TAG, "User " + email + " is not null");
-                    postEvent(GoogleEvent.onLoginError, "Error simulado");
-
                 }
+
+                //Usuario para agregar a preferencias
+                User user = User.getInstance();
+                user.setBirthday(birthday);
+                user.setEmail(email);
+                user.setPhone("0000");
+                user.setAvatarURL("");
+                user.setLast_name(last_name);
+                user.setName(first_name);
+                user.setUsername(last_name+"_"+first_name);
+                user.saveCash(context);
+
+                postEvent(GoogleEvent.onLoginSuccess);
             }
             @Override
             public void onCancelled(DatabaseError firebaseError) {
@@ -60,19 +71,6 @@ public class LoginRepositoryGoogleImp implements LoginRepositoryGoogle {
             }
         });
         //Fin comprobar BD
-
-        User user = User.getInstance();
-
-        user.setBirthday(birthday);
-        user.setEmail(email);
-        user.setPhone("0000");
-        user.setAvatarURL("");
-        user.setLast_name(last_name);
-        user.setName(first_name);
-        user.setUsername(last_name+"_"+first_name);
-
-        user.saveCash(context);
-        postEvent(GoogleEvent.onLoginSuccess);
     }
 
     private void postEvent(int type){

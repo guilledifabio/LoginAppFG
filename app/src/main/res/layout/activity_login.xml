@@ -11,48 +11,63 @@
     tools:context="ar.edu.unrn.lia.loginapp.login.ui.LoginActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
-
-        <Button
-            android:text="Ingresar"
-            android:layout_width="179dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnIdentificate" />
-
-        <Button
-            android:text="Registrate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnRegistrate" />
-    </LinearLayout>
-
-
-    <LinearLayout
         android:orientation="vertical"
-        android:layout_width="222dp"
+        android:layout_width="match_parent"
+        android:id="@+id/contenedorBotones"
+        android:layout_height="175dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1">
+
+
+        <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="104dp"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+            android:layout_weight="0.47">
 
         <com.facebook.login.widget.LoginButton
             android:layout_width="222dp"
             android:layout_height="52dp"
             android:id="@+id/btnLoginFacebook"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"/>
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btnLoginGoogle"
             android:layout_width="222dp"
             android:layout_height="52dp"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="34dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:text="Ingresar"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnIdentificate"
+                android:layout_width="163dp" />
+
+            <Button
+                android:text="Registrate"
+                android:layout_width="163dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnRegistrate" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </RelativeLayout>
