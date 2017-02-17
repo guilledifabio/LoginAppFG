@@ -9,7 +9,6 @@ import ar.edu.unrn.lia.loginapp.signIn.events.SignInEvent;
 public interface SignInPresenter {
     void onCreate();
     void onDestroy();
-//    void checkForAuthenticatedUser();
     void validateLogin(String email, String password);
     public void onEventMainThread(SignInEvent event);
 }

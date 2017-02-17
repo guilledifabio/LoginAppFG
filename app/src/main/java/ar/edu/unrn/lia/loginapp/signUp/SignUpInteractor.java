@@ -7,5 +7,5 @@ import android.content.Context;
  */
 
 public interface SignUpInteractor {
-    void doSignUp(String nombre, String apellido, String direccion, String email, String telefono, String password, String password2, Context context);
+    void doSignUp(String name, String last_name, String address, String email, String birthday, String celphone, String password, String reenter_password, Context context);
 }

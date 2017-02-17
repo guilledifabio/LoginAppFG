@@ -8,5 +8,4 @@ import android.content.Context;
 
 public interface SignInRepository {
     void signIn(String email, String password, Context context);
-//    void checkSession();
 }

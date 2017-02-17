@@ -31,7 +31,7 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     @BindView(R.id.btn_signin)
     AppCompatButton btnSignin;
     @BindView(R.id.link_signup)
-    TextView linkSignup;
+    TextView signupLink;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.linearLayout)

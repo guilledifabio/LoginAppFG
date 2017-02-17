@@ -3,10 +3,8 @@ package ar.edu.unrn.lia.loginapp.signUp.ui;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.util.Patterns;
@@ -25,26 +23,28 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SignUpActivity extends AppCompatActivity implements SignUpView{
+public class SignUpActivity extends AppCompatActivity implements SignUpView {
     private static final String TAG = "SignUpActivity";
     @BindView(R.id.input_lastname)
-    EditText _lastnameText;
+    EditText inputLastName;
     @BindView(R.id.input_name)
-    EditText _nameText;
-    @BindView(R.id.input_address)
-    EditText _addressText;
+    EditText inputName;
     @BindView(R.id.input_email)
-    EditText _emailText;
+    EditText inputEmail;
+    @BindView(R.id.input_address)
+    EditText inputAddress;
+    @BindView(R.id.input_birthday)
+    EditText inputBirthday;
     @BindView(R.id.input_mobile)
-    EditText _mobileText;
+    EditText inputCelphone;
     @BindView(R.id.input_password)
-    EditText _passwordText;
+    EditText inputPassword;
     @BindView(R.id.input_reEnterPassword)
-    EditText _reEnterPasswordText;
+    EditText inputReenterPassword;
     @BindView(R.id.btn_signup)
-    AppCompatButton _signupButton;
+    AppCompatButton btnSignup;
     @BindView(R.id.link_login)
-    TextView _loginLink;
+    TextView signinLink;
 
     private SignUpPresenter signupPresenter;
     private ProgressDialog progressDialog;
@@ -100,34 +100,35 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
     }
 
     @Override
-    public void navigateToSignInScreen(){
-        startActivity(new Intent(this,SignInActivity.class));
+    public void navigateToSignInScreen() {
+        startActivity(new Intent(this, SignInActivity.class));
     }
 
-    private void setInputs(boolean enabled){
-        _nameText.setEnabled(enabled);
-        _lastnameText.setEnabled(enabled);
-        _addressText.setEnabled(enabled);
-        _emailText.setEnabled(enabled);
-        _mobileText.setEnabled(enabled);
-        _passwordText.setEnabled(enabled);
-        _reEnterPasswordText.setEnabled(enabled);
-        _signupButton.setEnabled(enabled);
+    private void setInputs(boolean enabled) {
+        inputName.setEnabled(enabled);
+        inputLastName.setEnabled(enabled);
+        inputEmail.setEnabled(enabled);
+        inputAddress.setEnabled(enabled);
+        inputBirthday.setEnabled(enabled);
+        inputCelphone.setEnabled(enabled);
+        inputPassword.setEnabled(enabled);
+        inputReenterPassword.setEnabled(enabled);
+        btnSignup.setEnabled(enabled);
     }
 
     @OnClick(R.id.btn_signup)
     @Override
     public void handleSignUp() {
-        int tipoError[] = checkInputs();
+        int errorType[] = checkInputs();
 
-        if (tipoError[0] == 0 && tipoError[1] == 0 && tipoError[2] == 0 && tipoError[3] == 0 &&
-                tipoError[4] == 0 && tipoError[5] == 0 && tipoError[6] == 0 && tipoError[7] == 0) {
-            signupPresenter.registerNewUser(_nameText.getText().toString(), _lastnameText.getText().toString(),
-                    _addressText.getText().toString(), _emailText.getText().toString(), _mobileText.getText().toString(),
-                    _passwordText.getText().toString(), _reEnterPasswordText.getText().toString());
+        if (errorType[0] == 0 && errorType[1] == 0 && errorType[2] == 0 && errorType[3] == 0 &&
+                errorType[4] == 0 && errorType[5] == 0 && errorType[6] == 0 && errorType[7] == 0 && errorType[8] == 0) {
+            signupPresenter.registerNewUser(inputName.getText().toString(), inputLastName.getText().toString(),
+                    inputAddress.getText().toString(), inputEmail.getText().toString(), inputBirthday.getText().toString(), inputCelphone.getText().toString(),
+                    inputPassword.getText().toString(), inputReenterPassword.getText().toString());
 
-        }else{
-            onSignupFailed(tipoError);
+        } else {
+            onSignupFailed(errorType);
         }
     }
 
@@ -137,131 +138,139 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView{
         this.navigateToSignInScreen();
     }
 
-    private int[] checkInputs(){
-        int[] tipoError = {0, 0, 0, 0, 0, 0, 0, 0};
-        String name = _nameText.getText().toString();
-        String lastname = _lastnameText.getText().toString();
-        String direccion = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        String numCel = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String password2 = _reEnterPasswordText.getText().toString();
+    private int[] checkInputs() {
+        int[] errorType = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        String name = inputName.getText().toString();
+        String last_name = inputLastName.getText().toString();
+        String address = inputAddress.getText().toString();
+        String email = inputEmail.getText().toString();
+        String celphone = inputCelphone.getText().toString();
+        String birthday = inputBirthday.getText().toString();
+        String password = inputPassword.getText().toString();
+        String reenter_password = inputReenterPassword.getText().toString();
 
         if (name.isEmpty()) {
-            _nameText.setError("Ingrese un nombre válido");
-            tipoError[0] = 1;
+            inputName.setError("Ingrese un nombre válido");
+            errorType[0] = 1;
         } else {
-            _nameText.setError(null);
+            inputName.setError(null);
         }
 
-        if (lastname.isEmpty()) {
-            _lastnameText.setError("Ingrese un apellido válido");
-            tipoError[1] = 1;
+        if (last_name.isEmpty()) {
+            inputLastName.setError("Ingrese un apellido válido");
+            errorType[1] = 1;
         } else {
-            _lastnameText.setError(null);
+            inputLastName.setError(null);
         }
 
-        if (direccion.isEmpty()) {
-            _addressText.setError("Ingrese una dirección válida");
-            tipoError[2] = 1;
+        if (address.isEmpty()) {
+            inputAddress.setError("Ingrese una dirección válida");
+            errorType[2] = 1;
         } else {
-            _addressText.setError(null);
+            inputAddress.setError(null);
         }
 
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("Ingrese un email válido");
-            tipoError[3] = 1;
+            inputEmail.setError("Ingrese un email válido");
+            errorType[3] = 1;
         } else {
-            _emailText.setError(null);
+            inputEmail.setError(null);
         }
 
-        if (numCel.isEmpty() || !Patterns.PHONE.matcher(numCel).matches()) {
-            _mobileText.setError("Ingrese un número válido");
-            tipoError[4] = 1;
+        if (celphone.isEmpty() || !Patterns.PHONE.matcher(celphone).matches()) {
+            inputCelphone.setError("Ingrese un número válido");
+            errorType[4] = 1;
         } else {
-            _mobileText.setError(null);
+            inputCelphone.setError(null);
+        }
+
+        if (birthday.isEmpty()) {
+            inputBirthday.setError("Ingrese una fecha válida");
+            errorType[5] = 1;
+        } else {
+            inputBirthday.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("entre 4 y 10 caracteres alfanuméricos");
-            tipoError[5] = 1;
+            inputPassword.setError("entre 4 y 10 caracteres alfanuméricos");
+            errorType[6] = 1;
         } else {
-            _passwordText.setError(null);
+            inputPassword.setError(null);
         }
 
-        if (password2.isEmpty() || password2.length() < 4 || password2.length() > 10) {
-            _reEnterPasswordText.setError("entre 4 y 10 caracteres alfanuméricos");
-            tipoError[6] = 1;
+        if (reenter_password.isEmpty() || reenter_password.length() < 4 || reenter_password.length() > 10) {
+            inputReenterPassword.setError("entre 4 y 10 caracteres alfanuméricos");
+            errorType[7] = 1;
         } else {
-            _reEnterPasswordText.setError(null);
+            inputReenterPassword.setError(null);
         }
 
-        if (!password.equals(password2)) {
-            _passwordText.setError("No hay coincidencia");
-            _reEnterPasswordText.setError("No hay coincidencia");
-            tipoError[7] = 1;
+        if (!password.equals(reenter_password)) {
+            inputPassword.setError("No hay coincidencia");
+            inputReenterPassword.setError("No hay coincidencia");
+            errorType[8] = 1;
         } else {
-            _passwordText.setError(null);
-            _reEnterPasswordText.setError(null);
+            inputPassword.setError(null);
+            inputReenterPassword.setError(null);
         }
 
-        return tipoError;
+        return errorType;
     }
 
-    private void onSignupFailed(int[] tipoError) {
+    private void onSignupFailed(int[] errorType) {
         Toast.makeText(getBaseContext(), "Falló Sign up", Toast.LENGTH_LONG).show();
-        showErrors(tipoError);
+        showErrors(errorType);
         setInputs(true);
     }
 
-    private void showErrors(int[] tipoError) {
+    private void showErrors(int[] errorType) {
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 
-        if (tipoError[7] == 1) {
-            if (tipoError[5] != 1 && tipoError[6] != 1) {
-                _passwordText.setText("");
-                _passwordText.setError(_passwordText.getError());
-                _passwordText.startAnimation(shake);
+        if (errorType[7] == 1) {
+            if (errorType[5] != 1 && errorType[6] != 1) {
+                inputPassword.setText("");
+                inputPassword.setError(inputPassword.getError());
+                inputPassword.startAnimation(shake);
 
-                _reEnterPasswordText.setText("");
-                _passwordText.setError(_reEnterPasswordText.getError());
-                _reEnterPasswordText.startAnimation(shake);
+                inputReenterPassword.setText("");
+                inputPassword.setError(inputReenterPassword.getError());
+                inputReenterPassword.startAnimation(shake);
             }
         }
-        if (tipoError[6] == 1) {
-            _reEnterPasswordText.setText("");
-            _passwordText.setError(_reEnterPasswordText.getError());
-            _reEnterPasswordText.startAnimation(shake);
+        if (errorType[6] == 1) {
+            inputReenterPassword.setText("");
+            inputPassword.setError(inputReenterPassword.getError());
+            inputReenterPassword.startAnimation(shake);
         }
-        if (tipoError[5] == 1) {
-            _passwordText.setText("");
-            _passwordText.setError(_passwordText.getError());
-            _passwordText.startAnimation(shake);
+        if (errorType[5] == 1) {
+            inputPassword.setText("");
+            inputPassword.setError(inputPassword.getError());
+            inputPassword.startAnimation(shake);
         }
-        if (tipoError[4] == 1) {
-            _mobileText.setText("");
-            _mobileText.setError(_mobileText.getError());
-            _mobileText.startAnimation(shake);
+        if (errorType[4] == 1) {
+            inputCelphone.setText("");
+            inputCelphone.setError(inputCelphone.getError());
+            inputCelphone.startAnimation(shake);
         }
-        if (tipoError[3] == 1) {
-            _emailText.setText("");
-            _emailText.setError(_emailText.getError());
-            _emailText.startAnimation(shake);
+        if (errorType[3] == 1) {
+            inputEmail.setText("");
+            inputEmail.setError(inputEmail.getError());
+            inputEmail.startAnimation(shake);
         }
-        if (tipoError[2] == 1) {
-            _addressText.setText("");
-            _addressText.setError(_addressText.getError());
-            _addressText.startAnimation(shake);
+        if (errorType[2] == 1) {
+            inputAddress.setText("");
+            inputAddress.setError(inputAddress.getError());
+            inputAddress.startAnimation(shake);
         }
-        if (tipoError[1] == 1) {
-            _lastnameText.setText("");
-            _lastnameText.setError(_lastnameText.getError());
-            _lastnameText.startAnimation(shake);
+        if (errorType[1] == 1) {
+            inputLastName.setText("");
+            inputLastName.setError(inputLastName.getError());
+            inputLastName.startAnimation(shake);
         }
-        if (tipoError[0] == 1) {
-            _nameText.setText("");
-            _nameText.setError(_nameText.getError());
-            _nameText.startAnimation(shake);
+        if (errorType[0] == 1) {
+            inputName.setText("");
+            inputName.setError(inputName.getError());
+            inputName.startAnimation(shake);
         }
     }
 

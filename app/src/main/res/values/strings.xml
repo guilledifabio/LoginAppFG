@@ -12,13 +12,14 @@
     <string name="login.notice.message.signup">Usuario agregado exitosamente</string>
 
     <!-- Strings SignUpActivity -->
-    <string name="signup.message.nombre">Nombre</string>
-    <string name="signup.message.apellido">Apellido</string>
-    <string name="signup.message.direccion">Dirección</string>
+    <string name="signup.message.name">Nombre</string>
+    <string name="signup.message.last_name">Apellido</string>
     <string name="signup.message.email">Email</string>
-    <string name="signup.message.numeroCel">Número de Celular</string>
-    <string name="signup.message.contraseña">Contraseña</string>
-    <string name="signup.message.reingreseContraseña">Reingrese Contraseña</string>
+    <string name="signup.message.address">Dirección</string>
+    <string name="signup.message.birthday">Fecha Nacimiento</string>
+    <string name="signup.message.celphone">Número de Celular</string>
+    <string name="signup.message.password">Contraseña</string>
+    <string name="signup.message.reenter_passwprd">Reingrese Contraseña</string>
     <string name="signup.button.signup">Crear Cuenta</string>
     <string name="signup.notice.message.signin">¿Ya es miembre? Login</string>
 
@@ -44,12 +45,12 @@
     <string name="historial_key">historial</string>
 
     <string name="pref_datosPersonales_title">Datos Personales</string>
-    <string name="datos_nombre_key">name</string>
-    <string name="datos_apellido_key">lastname</string>
-    <string name="datos_direccion_key">address</string>
-    <string name="datos_birthday_key">birthday</string>
-    <string name="datos_email_key">datos_email</string>
-    <string name="datos_celular_key">phone</string>
+    <string name="data_name_key">name</string>
+    <string name="data_lastName_key">lastname</string>
+    <string name="data_address_key">address</string>
+    <string name="data_birthday_key">birthday</string>
+    <string name="data_email_key">datos_email</string>
+    <string name="data_celphone_key">phone</string>
 
     <string name="action_settings">Configuración</string>
     <string name="title_activity_settings">Preferencias</string>

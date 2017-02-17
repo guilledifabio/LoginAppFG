@@ -7,6 +7,5 @@ import android.content.Context;
  */
 
 public interface SignInInteractor {
-//    void checkSession();
     void doSignIn(String email, String password, Context context);
 }

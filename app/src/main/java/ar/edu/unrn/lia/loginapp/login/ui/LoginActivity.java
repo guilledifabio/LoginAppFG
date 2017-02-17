@@ -134,13 +134,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Snackbar.make(container, "Error sign in Facebook "+error.toString(), Snackbar.LENGTH_LONG);
     }
 
-    /*
-        @Override
-        public void signInSuccessGoogle(User user) {
-            guardarEnPreferencias(user);
-            navigateToMainScreen();
-        }
-    */
     @Override
     public void signInErrorGoogle(String error) {
         Snackbar.make(container, error, Snackbar.LENGTH_LONG);

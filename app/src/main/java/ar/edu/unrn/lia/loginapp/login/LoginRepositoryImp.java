@@ -18,39 +18,11 @@ import ar.edu.unrn.lia.loginapp.model.User;
 public class LoginRepositoryImp implements LoginRepository {
     private static final String TAG = "LoginRepositoryImp";
 
-//    DatabaseReference dbPrediccion;
-//    private ValueEventListener eventListener;
-
     public LoginRepositoryImp() {
-        //helper = FirebaseHelper.getInstance();
-        //dataReference = helper.getDataReference();
     }
 
     @Override
     public void checkSession() {
-/*
-        //Firebase
-        dbPrediccion =
-                FirebaseDatabase.getInstance().getReference()
-                        .child("prediccion-hoy");
-
-        eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i(TAG, "onDataChange");
-                Log.i(TAG, dataSnapshot.child("cielo").getValue().toString());
-                Log.i(TAG, dataSnapshot.child("temperatura").getValue().toString());
-                Log.i(TAG, dataSnapshot.child("humedad").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.i(TAG, "Error!", databaseError.toException());
-            }
-        };
-        dbPrediccion.addValueEventListener(eventListener);
-        //Fin Firebase
-*/
         User user = User.getInstance();
         Log.i(TAG, "CheckForAuth ");
         Log.i(TAG, "email --> "+user.getEmail() );
@@ -61,7 +33,6 @@ public class LoginRepositoryImp implements LoginRepository {
             Log.i(TAG, "checkSesionFailed");
             postEvent(LoginEvent.onFailedToRecoverSession, "No hay user logueado");
         }
-
     }
 
     private void postEvent(int type, User user) {

@@ -8,5 +8,5 @@ import android.content.Context;
 
 public interface SignUpRepository {
 
-    void signUp(String nombre, String apellido, String direccion, String email, String telefono, String password, String password2, Context context);
+    void signUp(final String name, final String last_name, final String address, final String email, final String birthday, final String celphone, final String password, String reenter_password, final Context context) ;
 }

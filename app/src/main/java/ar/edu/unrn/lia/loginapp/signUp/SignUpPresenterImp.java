@@ -1,5 +1,7 @@
 package ar.edu.unrn.lia.loginapp.signUp;
 
+import android.content.Context;
+
 import org.greenrobot.eventbus.Subscribe;
 
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
@@ -34,12 +36,12 @@ public class SignUpPresenterImp implements SignUpPresenter {
     }
 
     @Override
-    public void registerNewUser(String nombre, String apellido, String direccion, String email, String telefono, String password, String password2) {
+    public void registerNewUser(String name, String last_name, String address, String email, String birthday, String celphone, String password, String reenter_password){
         if (signupView != null){
             signupView.disableInputs();
             signupView.showProgress();
 
-            signupInteractor.doSignUp(nombre, apellido, direccion, email, telefono, password, password2, signupView.getContext());
+            signupInteractor.doSignUp(name, last_name, address, email, birthday, celphone, password, reenter_password, signupView.getContext());
         }
     }
 

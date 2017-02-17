@@ -9,6 +9,6 @@ import ar.edu.unrn.lia.loginapp.signUp.events.SignUpEvent;
 public interface SignUpPresenter {
     void onCreate();
     void onDestroy();
-    void registerNewUser(String nombre, String apellido, String direccion, String email, String telefono, String password, String password2);
+    void registerNewUser(String name, String last_name, String address, String email, String birthday, String celphone, String password, String reenter_password);
     public void onEventMainThread(SignUpEvent event);
 }

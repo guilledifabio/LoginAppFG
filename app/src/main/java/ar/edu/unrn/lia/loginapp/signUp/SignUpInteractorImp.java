@@ -14,8 +14,8 @@ public class SignUpInteractorImp implements SignUpInteractor {
     }
 
     @Override
-    public void doSignUp(String nombre, String apellido, String direccion, String email, String telefono, String password, String password2, Context context) {
-        signupRepository.signUp(nombre, apellido, direccion, email, telefono, password, password2, context);
+    public void doSignUp(String name, String last_name, String address, String email, String birthday, String celphone, String password, String reenter_password, Context context) {
+        signupRepository.signUp(name, last_name, address, email, birthday, celphone, password, reenter_password, context);
     }
 
 }

@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="@string/signup.message.nombre"/>
+                android:hint="@string/signup.message.name"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Lastname Label -->
@@ -42,20 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="@string/signup.message.apellido"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <!-- Address Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:hint="@string/signup.message.direccion" />
+                android:hint="@string/signup.message.last_name"/>
         </android.support.design.widget.TextInputLayout>
 
         <!--  Email Label -->
@@ -71,6 +58,32 @@
                 android:hint="@string/signup.message.email" />
         </android.support.design.widget.TextInputLayout>
 
+        <!-- Address Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/input_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
+                android:hint="@string/signup.message.address" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--  Borthday Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/input_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:hint="@string/signup.message.birthday" />
+        </android.support.design.widget.TextInputLayout>
+
         <!-- mobile number -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -81,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="@string/signup.message.numeroCel" />
+                android:hint="@string/signup.message.celphone" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -94,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="@string/signup.message.contraseña"/>
+                android:hint="@string/signup.message.password"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Re-enter Label -->
@@ -107,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="@string/signup.message.reingreseContraseña"/>
+                android:hint="@string/signup.message.reenter_passwprd"/>
         </android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->

@@ -27,32 +27,32 @@
         <android.support.v7.preference.EditTextPreference
             android:id="@+id/name"
             android:key="name"
-            android:summary="Nombre"
-            android:title="Nombre" />
+            android:summary="@string/signup.message.name"
+            android:title="@string/signup.message.name" />
 
         <android.support.v7.preference.EditTextPreference
             android:id="@+id/lastname"
             android:key="lastname"
-            android:summary="Apellido"
-            android:title="Apellido" />
+            android:summary="@string/signup.message.last_name"
+            android:title="@string/signup.message.last_name" />
 
         <android.support.v7.preference.EditTextPreference
             android:id="@+id/birthday"
             android:key="birthday"
-            android:summary="Birthday"
-            android:title="Birthday" />
+            android:summary="@string/signup.message.birthday"
+            android:title="@string/signup.message.birthday" />
 
         <android.support.v7.preference.EditTextPreference
             android:id="@+id/address"
             android:key="address"
-            android:summary="Dirección"
-            android:title="Dirección" />
+            android:summary="@string/signup.message.address"
+            android:title="@string/signup.message.address" />
 
         <android.support.v7.preference.EditTextPreference
             android:id="@+id/phoneNumber"
             android:key="phone"
-            android:summary="Celular"
-            android:title="Celular" />
+            android:summary="@string/signup.message.celphone"
+            android:title="@string/signup.message.celphone" />
 
     </android.support.v7.preference.PreferenceCategory>
 

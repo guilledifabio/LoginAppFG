@@ -30,7 +30,7 @@ public class SignUpRepositoryImp implements SignUpRepository {
     }
 
     @Override
-    public void signUp(final String nombre, final String apellido, String direccion, final String email, final String telefono, final String password, String password2, final Context context) {
+    public void signUp(final String name, final String last_name, String address, final String email, final String birthday, final String celphone, final String password, String reenter_password, final Context context) {
         userReference = helper.getUserReference(email);
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -42,15 +42,15 @@ public class SignUpRepositoryImp implements SignUpRepository {
                     Log.i(TAG, "user_firebase == null");
 
                     User user = User.getInstance();
-                    user.setLast_name(apellido);
-                    user.setName(nombre);
+                    user.setLast_name(last_name);
+                    user.setName(name);
                     user.setAvatarURL("");
-                    user.setBirthday("");
+                    user.setBirthday(birthday);
                     user.setEmail(email);
-                    user.setPhone(telefono);
-                    user.setUsername(nombre+"_"+apellido);
+                    user.setPhone(celphone);
+                    user.setUsername(name+"_"+last_name);
                     user.saveCash(context);
-                    helper.writeNewUser(email, nombre, apellido, password, Constants.SIGNIN_EMAIL);
+                    helper.writeNewUser(email, name, last_name, password, Constants.SIGNIN_EMAIL);
                     postEvent(SignUpEvent.onSignUpSuccess);
                 }else{
                     Log.i(TAG, "User " + email + " is unexpectedly not null");
@@ -79,4 +79,6 @@ public class SignUpRepositoryImp implements SignUpRepository {
         EventBus eventBus = GreenRobotEventBus.getInstance();
         eventBus.post(signUpEvent);
     }
+
+
 }

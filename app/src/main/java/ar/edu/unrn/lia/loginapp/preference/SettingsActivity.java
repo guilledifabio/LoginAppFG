@@ -2,7 +2,6 @@ package ar.edu.unrn.lia.loginapp.preference;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.EditTextPreference;
@@ -11,11 +10,6 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.view.MenuItem;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import ar.edu.unrn.lia.loginapp.R;
 import ar.edu.unrn.lia.loginapp.inicio.MainActivity;
@@ -62,7 +56,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     public static class SettingFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-
         private static final String TAG = SettingFragment.class.getSimpleName();
 
         SharedPreferences sharedPreferences;
@@ -82,12 +75,13 @@ public class SettingsActivity extends AppCompatActivity {
             onSharedPreferenceChanged(sharedPreferences, getString(R.string.notification_time_key));
 //            onSharedPreferenceChanged(sharedPreferences, getString(R.string.provincia_key));
 //            onSharedPreferenceChanged(sharedPreferences, getString(R.string.localidad_key));
-            onSharedPreferenceChanged(sharedPreferences, getString(R.string.datos_birthday_key));
-            onSharedPreferenceChanged(sharedPreferences, getString(R.string.datos_nombre_key));
-            onSharedPreferenceChanged(sharedPreferences, getString(R.string.datos_apellido_key));
-            onSharedPreferenceChanged(sharedPreferences, getString(R.string.datos_direccion_key));
-            onSharedPreferenceChanged(sharedPreferences, getString(R.string.datos_email_key));
-            onSharedPreferenceChanged(sharedPreferences, getString(R.string.datos_celular_key));
+
+            onSharedPreferenceChanged(sharedPreferences, getString(R.string.data_name_key));
+            onSharedPreferenceChanged(sharedPreferences, getString(R.string.data_lastName_key));
+            onSharedPreferenceChanged(sharedPreferences, getString(R.string.data_email_key));
+            onSharedPreferenceChanged(sharedPreferences, getString(R.string.data_address_key));
+            onSharedPreferenceChanged(sharedPreferences, getString(R.string.data_birthday_key));
+            onSharedPreferenceChanged(sharedPreferences, getString(R.string.data_celphone_key));
 
         }
 
