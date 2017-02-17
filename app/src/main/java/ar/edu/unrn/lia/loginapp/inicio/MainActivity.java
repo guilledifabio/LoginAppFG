@@ -55,17 +55,7 @@ public class MainActivity extends AppCompatActivity
         }else{
             Log.i(TAG, "Email NULL");
         }
- /*
-        //Obtengo email del usuario mediante Preferencias
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        email = preferences.getString(getString(R.string.datos_email_key), "");
 
-        if (email != null){
-            Log.i(TAG, email);
-        }else{
-            Log.i(TAG, "Email NULL");
-        }
-*/
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

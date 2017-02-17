@@ -32,8 +32,9 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".signUp.ui.SignUpActivity" />
-        <activity android:name=".preference.SettingsActivity" />
-        <activity android:name=".signIn.ui.SignInActivity" />
+        <activity android:name=".preference.SettingsActivity"
+            android:label="@string/pref_title"/>
+        <activity android:name=".signIn.ui.SignInActivity"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
