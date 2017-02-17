@@ -4,11 +4,18 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
+import ar.edu.unrn.lia.loginapp.domain.FirebaseHelper;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
 import ar.edu.unrn.lia.loginapp.login.events.GoogleEvent;
+import ar.edu.unrn.lia.loginapp.model.Constants;
 import ar.edu.unrn.lia.loginapp.model.User;
+import ar.edu.unrn.lia.loginapp.model.User_Firebase;
 
 /**
  * Created by Germán on 5/2/2017.
@@ -16,23 +23,43 @@ import ar.edu.unrn.lia.loginapp.model.User;
 
 public class LoginRepositoryGoogleImp implements LoginRepositoryGoogle {
     private static final String TAG = "LoginRepositoryGoogle";
+    private FirebaseHelper helper;
+    private DatabaseReference userReference;
 
     public LoginRepositoryGoogleImp(){
-
+        helper = FirebaseHelper.getInstance();
     }
 
     @Override
-    public void signIn(GoogleSignInAccount acct, Context context) {
-        String email = acct.getEmail();
+    public void signIn(GoogleSignInAccount acct, final Context context) {
+        final String email = acct.getEmail();
+        final String first_name = acct.getGivenName();
+        final String last_name = acct.getFamilyName();
+        String birthday = "";
 
         //Comprobar que usuario esté en la BD y sinó agregarlo
-        //Firebase
-        //Fin comprobar BD
+        userReference = helper.getUserReference(email);
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        String first_name = acct.getGivenName();
-        String last_name = acct.getFamilyName();
-//        String profilePicUrl = acct.getPhotoUrl().toString();
-        String birthday = "";
+                User_Firebase user_firebase = dataSnapshot.getValue(User_Firebase.class);
+                if (user_firebase == null) { //No existe usuario con Email = email en BD
+                    Log.i(TAG, "user_firebase == null");
+                    helper.writeNewUser(email, first_name, last_name, "", Constants.SIGNIN_GOOGLE);
+                }else{
+                    Log.i(TAG, "User " + email + " is not null");
+                    postEvent(GoogleEvent.onLoginError, "Error simulado");
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+                Log.i(TAG, "onCancelled"+firebaseError.toString());
+                postEvent(GoogleEvent.onLoginError, firebaseError.toString());
+            }
+        });
+        //Fin comprobar BD
 
         User user = User.getInstance();
 
@@ -42,23 +69,22 @@ public class LoginRepositoryGoogleImp implements LoginRepositoryGoogle {
         user.setAvatarURL("");
         user.setLast_name(last_name);
         user.setName(first_name);
-        String userName = new StringBuilder().append(last_name).append(" ").append(first_name).toString();
-        user.setUsername(userName);
+        user.setUsername(last_name+"_"+first_name);
 
         user.saveCash(context);
-        postEvent(GoogleEvent.onLoginSuccess, null, user);
+        postEvent(GoogleEvent.onLoginSuccess);
     }
 
-    private void postEvent(int type, String errorMessage, User user) {
+    private void postEvent(int type){
+        postEvent(type, null);
+    }
+
+    private void postEvent(int type, String errorMessage) {
         Log.i(TAG,"Metodo postEvent");
         GoogleEvent googleEvent = new GoogleEvent();
         googleEvent.setEventType(type);
         if (errorMessage != null) {
             googleEvent.setErrorMesage(errorMessage);
-        }else{
-            if (user != null){
-                googleEvent.setUser(user);
-            }
         }
 
         EventBus eventBus = GreenRobotEventBus.getInstance();

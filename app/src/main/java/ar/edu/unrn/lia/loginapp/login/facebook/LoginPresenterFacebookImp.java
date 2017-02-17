@@ -102,17 +102,16 @@ public class LoginPresenterFacebookImp implements LoginPresenterFacebook{
                 break;
             case FacebookEvent.onLoginSuccess:
                 Log.i(TAG,"Metodo onEventMainThread success");
-                onLoginSuccess(event.getUsuario());
+                onLoginSuccess();
                 break;
         }
     }
 
-    private void onLoginSuccess(User user){
+    private void onLoginSuccess(){
         Log.i(TAG, "EventBus onLoginSuccess Antes del NULL");
         if (loginView != null){
             Log.i(TAG, "EventBus onLoginSuccess");
             loginView.navigateToMainScreen();
-           // loginView.signInSuccessFacebook(user);
         }
     }
 

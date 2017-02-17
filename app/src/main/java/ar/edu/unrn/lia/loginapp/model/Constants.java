@@ -31,8 +31,9 @@ public class Constants {
     public static String USER_AVATAR = "user_avatar";
 
     //Sign In With
-    public static int SIGNIN_FACEBOOK = 0;
-    public static int SIGNIN_GOOGLE = 1;
-    public static int SIGNIN_EMAIL = 2;
+    public static int SIGNIN_EMAIL = 0;
+    public static int SIGNIN_FACEBOOK = 1;
+    public static int SIGNIN_GOOGLE = 2;
+
 
 }

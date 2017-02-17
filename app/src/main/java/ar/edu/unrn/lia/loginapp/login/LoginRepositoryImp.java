@@ -18,8 +18,8 @@ import ar.edu.unrn.lia.loginapp.model.User;
 public class LoginRepositoryImp implements LoginRepository {
     private static final String TAG = "LoginRepositoryImp";
 
-    DatabaseReference dbPrediccion;
-    private ValueEventListener eventListener;
+//    DatabaseReference dbPrediccion;
+//    private ValueEventListener eventListener;
 
     public LoginRepositoryImp() {
         //helper = FirebaseHelper.getInstance();
@@ -55,11 +55,11 @@ public class LoginRepositoryImp implements LoginRepository {
         Log.i(TAG, "CheckForAuth ");
         Log.i(TAG, "email --> "+user.getEmail() );
         if (user.getEmail() != null) {
-            postEvent(LoginEvent.onSuccessToRecoverSession, user);
             Log.i(TAG, "checkSesionSuccess");
+            postEvent(LoginEvent.onSuccessToRecoverSession, user);
         } else {
-            postEvent(LoginEvent.onFailedToRecoverSession, "No hay user logueado");
             Log.i(TAG, "checkSesionFailed");
+            postEvent(LoginEvent.onFailedToRecoverSession, "No hay user logueado");
         }
 
     }

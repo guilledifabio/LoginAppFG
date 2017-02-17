@@ -82,7 +82,6 @@ public class LoginPresenterGoogleImp implements LoginPresenterGoogle, GoogleApiC
     }
 
     private void handleSignInResult(GoogleSignInResult result, LoginActivity loginView) {
-        //Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             loginInteractorGoogle.doSignIn(result.getSignInAccount(),loginView.getContext());
         } else {
@@ -119,12 +118,12 @@ public class LoginPresenterGoogleImp implements LoginPresenterGoogle, GoogleApiC
                 break;
             case GoogleEvent.onLoginSuccess:
                 Log.i(TAG,"Metodo onEventMainThread success");
-                onLoginSuccess(event.getUser());
+                onLoginSuccess();
                 break;
         }
     }
 
-    private void onLoginSuccess(User user){
+    private void onLoginSuccess(){
         Log.i(TAG, "EventBus onLoginSuccess Antes del NULL");
         if (loginView != null){
             Log.i(TAG, "EventBus onLoginSuccess");

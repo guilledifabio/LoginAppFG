@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import ar.edu.unrn.lia.loginapp.domain.FirebaseHelper;
 import ar.edu.unrn.lia.loginapp.lib.EventBus;
 import ar.edu.unrn.lia.loginapp.lib.GreenRobotEventBus;
+import ar.edu.unrn.lia.loginapp.model.Constants;
 import ar.edu.unrn.lia.loginapp.model.User;
 import ar.edu.unrn.lia.loginapp.model.User_Firebase;
 import ar.edu.unrn.lia.loginapp.signIn.events.SignInEvent;
@@ -35,36 +36,33 @@ public class SignInRepositoryImp implements SignInRepository {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG, "onDataChange");
-                /*
-                Log.i(TAG, dataSnapshot.getKey().toString());
-                Log.i(TAG, dataSnapshot.toString());
-                Log.i(TAG, String.valueOf(dataSnapshot.getChildrenCount()));
-                Log.i(TAG, String.valueOf(dataSnapshot.child("contraseña").getValue().toString()));
-*/
+
                 User_Firebase user_firebase = dataSnapshot.getValue(User_Firebase.class);
 
-                if (user_firebase == null) {
+                if (user_firebase == null) { //Si no existe usuario en BD
                     Log.i(TAG, "User " + email + " is unexpectedly null");
                     postEvent(SignInEvent.onSignInError, "User " + email + " is unexpectedly null");
                 }else{
-                    if (password.equals(dataSnapshot.child("contraseña").getValue().toString())){
-                        User user = User.getInstance();
-                        user.setAvatarURL("");
-                        user.setBirthday("");
-                        user.setEmail(email);
-                        user.setAvatarURL("");
-                        user.setLast_name(dataSnapshot.child("apellido").getValue().toString());
-                        user.setName(dataSnapshot.child("nombre").getValue().toString());
+                    if (user_firebase.getSignInWith() == Constants.SIGNIN_EMAIL){
+                        if (password.equals(user_firebase.getContraseña())){
+                            User user = User.getInstance();
+                            user.setAvatarURL("");
+                            user.setBirthday("");
+                            user.setEmail(email);
+                            user.setAvatarURL("");
+                            user.setLast_name(user_firebase.getApellido());
+                            user.setName(user_firebase.getNombre());
+                            user.setUsername(user_firebase.getNombre()+"_"+user_firebase.getApellido());
 
-                        user.setUsername("");
-
-                        user.saveCash(context);
-                        postEvent(SignInEvent.onSignInSuccess);
+                            user.saveCash(context);
+                            postEvent(SignInEvent.onSignInSuccess);
+                        }else{
+                            postEvent(SignInEvent.onSignInError, "Contraseña Incorrecta");
+                        }
                     }else{
-                        postEvent(SignInEvent.onSignInError, "Contraseña Incorrecta");
+                        Log.i(TAG,"SignIn without EMAIL");
                     }
                 }
-
             }
             @Override
             public void onCancelled(DatabaseError firebaseError) {

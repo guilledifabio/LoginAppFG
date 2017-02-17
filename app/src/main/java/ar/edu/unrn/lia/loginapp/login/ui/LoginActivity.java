@@ -144,6 +144,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void signInErrorGoogle(String error) {
         Snackbar.make(container, error, Snackbar.LENGTH_LONG);
+        Log.i(TAG, "asd");
     }
 
     @Override
