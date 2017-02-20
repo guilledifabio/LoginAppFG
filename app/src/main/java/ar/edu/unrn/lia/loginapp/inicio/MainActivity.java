@@ -1,7 +1,6 @@
 package ar.edu.unrn.lia.loginapp.inicio;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -9,19 +8,26 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 
+
+import ar.edu.unrn.lia.loginapp.App;
 import ar.edu.unrn.lia.loginapp.R;
 //import ar.edu.unrn.lia.loginapp.entities.Usuario_Table;
 //import ar.edu.unrn.lia.loginapp.pref_headers.DatosPersonalesActivity;
+import ar.edu.unrn.lia.loginapp.login.ui.LoginActivity;
 import ar.edu.unrn.lia.loginapp.map.MapsActivity;
 import ar.edu.unrn.lia.loginapp.model.User;
 import ar.edu.unrn.lia.loginapp.preference.SettingsActivity;
@@ -37,9 +43,11 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-
+    private TextView emailTxt;
+    private TextView nameTxt;
+    private ImageView imagePerson;
     private User user;
-
+    protected App apppdts;
     private String email;
 
     @Override
@@ -47,12 +55,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        apppdts = (App) getApplicationContext();
         user = User.getInstance();
         email = user.getEmail();
-        if (email != null){
+        if (email != null) {
             Log.i(TAG, email);
-        }else{
+        } else {
             Log.i(TAG, "Email NULL");
         }
 
@@ -65,6 +73,36 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
+        View header = navigationView.getHeaderView(0);
+        emailTxt = (TextView) header.findViewById(R.id.textview);
+        nameTxt = (TextView) header.findViewById(R.id.name_nav_header);
+        imagePerson = (ImageView) header.findViewById(R.id.imagePerson);
+
+        String email = apppdts.getEmail(); //getIntent().getExtras().getString("email");
+        String name = apppdts.getNombre();
+        if (email == "none" && name == "none") {
+            emailTxt.setVisibility(View.GONE);
+            nameTxt.setText("Identifcate | Registrate");
+            nameTxt.setClickable(true);
+            nameTxt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    navigateToLogin();
+                }
+            });
+        } else {
+            emailTxt.setText(email);
+            nameTxt.setText(name);
+        }
+        //String personPhotoUrl = getIntent().getExtras().getString("photo");
+
+       /* if (imagePerson != null) {
+            Glide.with(getApplicationContext()).load(personPhotoUrl)
+
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imagePerson);
+        }
+*/
         //Seteo fragment de Inicio
         Fragment fragment = new InicioFragment();
         getSupportFragmentManager().beginTransaction()
@@ -126,6 +164,8 @@ public class MainActivity extends AppCompatActivity
                 //  fragmentTransaction = true;
                 break;
             case R.id.nav_favoritos:
+                Log.d("MainActivity", "Boton Fav");
+                navigateToLogin();
                 //  fragment = new FavoritosFragment();
                 //  fragmentTransaction = true;
                 break;
@@ -171,22 +211,28 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    protected void onDestroy(){
-        Log.i(TAG,"onDestroy MAIN");
+    protected void onDestroy() {
+        Log.i(TAG, "onDestroy MAIN");
         super.onDestroy();
     }
+
 
     public void disconnectFromFacebook() {
 
         if (AccessToken.getCurrentAccessToken() == null) {
-            Log.i(TAG,"accesTocken = NULL");
-        }else{
-            Log.i(TAG,"accesTocken != NULL");
+            Log.i(TAG, "accesTocken = NULL");
+        } else {
+            Log.i(TAG, "accesTocken != NULL");
             LoginManager.getInstance().logOut();
         }
     }
 
-    public void disconnect(){
+    private void navigateToLogin() {
+
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    public void disconnect() {
         user.setEmail(null);
     }
 }

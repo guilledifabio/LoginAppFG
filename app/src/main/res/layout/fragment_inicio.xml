@@ -4,21 +4,53 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical">
 
-<TextView
-    android:id="@+id/textView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:background="@color/background_header_seccion_inicio"
-    android:gravity="center"
-    android:padding="8dp"
-    android:text="INICIO"
-    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-    android:textColor="@color/color_light" />
+    <HorizontalScrollView
+        android:id="@+id/horizontal_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/reciclador"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical" />
+        <LinearLayout
+            android:id="@+id/list_categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="200dp">
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_menu_category"/>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_menu_camera"/>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/ic_mecanica"/>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/ic_tapicero"/>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_menu_camera"/>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/ic_mecanica"/>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/ic_tapicero"/>
+</LinearLayout>
+    </HorizontalScrollView>
+
 </LinearLayout>
